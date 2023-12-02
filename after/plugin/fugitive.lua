@@ -1,10 +1,10 @@
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 
-local ThePrimeagen_Fugitive = vim.api.nvim_create_augroup("ThePrimeagen_Fugitive", {})
+local JesseFugitive = vim.api.nvim_create_augroup("JesseFugitive", {})
 
 local autocmd = vim.api.nvim_create_autocmd
 autocmd("BufWinEnter", {
-    group = ThePrimeagen_Fugitive,
+    group = JesseFugitive,
     pattern = "*",
     callback = function()
         if vim.bo.ft ~= "fugitive" then
@@ -13,17 +13,25 @@ autocmd("BufWinEnter", {
 
         local bufnr = vim.api.nvim_get_current_buf()
         local opts = {buffer = bufnr, remap = false}
-        vim.keymap.set("n", "<leader>p", function()
+
+        --git push (big P, dominant)
+        vim.keymap.set("n", "<leader>GP", function()
             vim.cmd.Git('push')
         end, opts)
 
-        -- rebase always
-        vim.keymap.set("n", "<leader>P", function()
-            vim.cmd.Git({'pull',  '--rebase'})
+        -- git pull (little p, submissive)
+        vim.keymap.set("n", "<leader>Gp", function()
+            vim.cmd.Git({'pull'})
         end, opts)
 
-        -- NOTE: It allows me to easily set the branch i am pushing and any tracking
-        -- needed if i did not set the branch up correctly
-        vim.keymap.set("n", "<leader>t", ":Git push -u origin ", opts);
+        -- Gdiff for merge conflicts
+        vim.keymap.set("n", "<leader>Gd", ":Gdiff<CR>", opts)
+
+        -- push to upstream origin when first going remote
+        -- GO (Git Origin)
+        vim.keymap.set("n", "<leader>GO", ":Git push -u origin ", opts);
+
     end,
 })
+vim.keymap.set("n", "ga", "<cmd>diffget //2<CR>")
+vim.keymap.set("n", "gl", "<cmd>diffget //3<CR>")

@@ -2,24 +2,30 @@
 
 -- Only required if you have packer configured as `opt`
 vim.cmd.packadd('packer.nvim')
-
 return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
+  use "nvim-telescope/telescope.nvim"
 
-  use {
-	  'nvim-telescope/telescope.nvim', tag = '0.1.0',
-	  -- or                            , branch = '0.1.x',
-	  requires = { {'nvim-lua/plenary.nvim'} }
-  }
+  --   use {
+	 --  'nvim-telescope/telescope.nvim', tag = '0.1.0',
+	 --  requires = { {'nvim-lua/plenary.nvim'} }
+  -- }
 
   use({
 	  'rose-pine/neovim',
 	  as = 'rose-pine',
-	  config = function()
-		  vim.cmd('colorscheme rose-pine')
-	  end
   })
+
+  use {
+      'olivercederborg/poimandres.nvim',
+      as = 'poimandres',
+      config = function()
+          require('poimandres').setup {
+            -- todo
+          }
+      end
+  }
 
   use({
       "folke/trouble.nvim",
@@ -34,13 +40,38 @@ return require('packer').startup(function(use)
   })
 
 
-  use({"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"})
+  use {
+		"nvim-treesitter/nvim-treesitter",
+		-- :TSUpdate[Sync] doesn't exist until plugin/nvim-treesitter is loaded (i.e. not after first install); call update() directly
+		run = function() require("nvim-treesitter.install").update { with_sync = true } end
+	}
   use("nvim-treesitter/playground")
-  use("theprimeagen/harpoon")
+  use "nvim-lua/plenary.nvim"
+  -- use "ThePrimeagen/harpoon"
+  use {
+      "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    requires = { {"nvim-lua/plenary.nvim"} }
+  }
+  use("vrischmann/tree-sitter-templ")
   use("theprimeagen/refactoring.nvim")
   use("mbbill/undotree")
   use("tpope/vim-fugitive")
   use("nvim-treesitter/nvim-treesitter-context");
+  use("theprimeagen/vim-be-good");
+  use {
+    'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+        end
+  }
+  use({
+     "folke/neoconf.nvim",
+    })
+  use {
+      "rafi/neoconf-venom.nvim",
+      requires = { "nvim-lua/plenary.nvim" },
+  }
 
   use {
 	  'VonHeikemen/lsp-zero.nvim',
@@ -62,13 +93,14 @@ return require('packer').startup(function(use)
 		  -- Snippets
 		  {'L3MON4D3/LuaSnip'},
 		  {'rafamadriz/friendly-snippets'},
+
+          {'onsails/lspkind-nvim'}
 	  }
   }
 
   use("folke/zen-mode.nvim")
-  use("github/copilot.vim")
-  use("eandrju/cellular-automaton.nvim")
   use("laytan/cloak.nvim")
+  use("sbdchd/neoformat")
 
 end)
 

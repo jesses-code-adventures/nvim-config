@@ -1,21 +1,73 @@
 local lsp = require("lsp-zero")
 
+-- local mason = require("mason-lspconfig").setup {
+--     ensure_installed = { "lua_ls", "rust_analyzer", "gopls", "html", "tsserver", "ruff_lsp", "jedi-language-server", "prettier" },
+-- }
+
 lsp.preset("recommended")
 
 lsp.ensure_installed({
   'tsserver',
   'rust_analyzer',
+  'gopls',
+  'html',
 })
 
 -- Fix Undefined global 'vim'
-lsp.configure('lua-language-server', {
+lsp.configure('lua_ls', {
     settings = {
         Lua = {
             diagnostics = {
                 globals = { 'vim' }
             }
+        },
+        Html = {
+            filetypes = {
+                'html', 'nue'
+            }
         }
     }
+})
+
+lsp.configure('clangd', {
+    capabilities = { offsetEncoding = "utf-8" },
+})
+
+-- require "lspconfig".ruff_lsp.setup{}
+require "lspconfig".gopls.setup{}
+
+lsp.configure('tailwindcss', {
+    settings = {
+        tailwindCSS = {
+            experimental = {
+                classRegex = {
+                    "tailwind\\('([^)]*)\\')", "'([^']*)'"
+                },
+            },
+            filetypes = {
+                "css",
+                "scss",
+                "sass",
+                "postcss",
+                "html",
+                "javascript",
+                "javascriptreact",
+                "typescript",
+                "typescriptreact",
+                "svelte",
+                "vue",
+                "rust",
+                "rs"
+              },
+            init_options = {
+                  userLanguages = {
+                    eelixir = "html-eex",
+                    eruby = "erb",
+                    rust = "html",
+                  },
+            },
+        },
+    },
 })
 
 
@@ -32,11 +84,11 @@ cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 
 lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
+  mapping = cmp_mappings,
 })
 
 lsp.set_preferences({
-    suggest_lsp_servers = false,
+    suggest_lsp_servers = true,
     sign_icons = {
         error = 'E',
         warn = 'W',
@@ -44,6 +96,7 @@ lsp.set_preferences({
         info = 'I'
     }
 })
+
 
 lsp.on_attach(function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
