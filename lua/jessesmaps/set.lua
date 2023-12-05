@@ -30,3 +30,4 @@ vim.opt.updatetime = 10
 
 vim.opt.colorcolumn = "0"
 
+vim.opt.laststatus = 3

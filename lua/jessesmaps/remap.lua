@@ -53,3 +53,4 @@ end)
 
 vim.keymap.set("n", "<leader>py", "<cmd>!python % <CR>", { silent = false, noremap = true })
 
+vim.keymap.set("n", "<leader>km", ":Telescope keymaps<CR>")
