@@ -1,17 +1,6 @@
 local lsp = require("lsp-zero")
 
--- local mason = require("mason-lspconfig").setup {
---     ensure_installed = { "lua_ls", "rust_analyzer", "gopls", "html", "tsserver", "ruff_lsp", "jedi-language-server", "prettier" },
--- }
-
 lsp.preset("recommended")
-
-lsp.ensure_installed({
-  'tsserver',
-  'rust_analyzer',
-  'gopls',
-  'html',
-})
 
 -- Fix Undefined global 'vim'
 lsp.configure('lua_ls', {
@@ -23,7 +12,7 @@ lsp.configure('lua_ls', {
         },
         Html = {
             filetypes = {
-                'html', 'nue'
+                'html'
             }
         }
     }
@@ -32,9 +21,6 @@ lsp.configure('lua_ls', {
 lsp.configure('clangd', {
     capabilities = { offsetEncoding = "utf-8" },
 })
-
--- require "lspconfig".ruff_lsp.setup{}
-require "lspconfig".gopls.setup{}
 
 lsp.configure('tailwindcss', {
     settings = {

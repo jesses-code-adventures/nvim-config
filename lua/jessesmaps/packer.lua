@@ -7,25 +7,15 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use "nvim-telescope/telescope.nvim"
 
-  --   use {
-	 --  'nvim-telescope/telescope.nvim', tag = '0.1.0',
-	 --  requires = { {'nvim-lua/plenary.nvim'} }
-  -- }
-
   use({
 	  'rose-pine/neovim',
 	  as = 'rose-pine',
   })
 
-  use {
-      'olivercederborg/poimandres.nvim',
-      as = 'poimandres',
-      config = function()
-          require('poimandres').setup {
-            -- todo
-          }
-      end
-  }
+  use({
+    "craftzdog/solarized-osaka.nvim",
+    as = "solarized-osaka"
+  })
 
   use({
       "folke/trouble.nvim",
@@ -42,12 +32,10 @@ return require('packer').startup(function(use)
 
   use {
 		"nvim-treesitter/nvim-treesitter",
-		-- :TSUpdate[Sync] doesn't exist until plugin/nvim-treesitter is loaded (i.e. not after first install); call update() directly
 		run = function() require("nvim-treesitter.install").update { with_sync = true } end
 	}
   use("nvim-treesitter/playground")
   use "nvim-lua/plenary.nvim"
-  -- use "ThePrimeagen/harpoon"
   use {
       "ThePrimeagen/harpoon",
     branch = "harpoon2",
@@ -58,7 +46,6 @@ return require('packer').startup(function(use)
   use("mbbill/undotree")
   use("tpope/vim-fugitive")
   use("nvim-treesitter/nvim-treesitter-context");
-  use("theprimeagen/vim-be-good");
   use {
     'numToStr/Comment.nvim',
     config = function()
@@ -72,6 +59,15 @@ return require('packer').startup(function(use)
       "rafi/neoconf-venom.nvim",
       requires = { "nvim-lua/plenary.nvim" },
   }
+
+  -- Debugger
+  use 'mfussenegger/nvim-dap'
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+  use "folke/neodev.nvim"
+  use "theHamsta/nvim-dap-virtual-text"
+  use "mfussenegger/nvim-dap-python"
+  use "jay-babu/mason-nvim-dap.nvim"
+
 
   use {
 	  'VonHeikemen/lsp-zero.nvim',
