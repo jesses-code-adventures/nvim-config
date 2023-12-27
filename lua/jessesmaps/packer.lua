@@ -18,6 +18,11 @@ return require('packer').startup(function(use)
   })
 
   use({
+      "IMOKURI/line-number-interval.nvim",
+      as = "line-number-interval"
+  })
+
+  use({
       "folke/trouble.nvim",
       config = function()
           require("trouble").setup {

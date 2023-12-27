@@ -1,44 +1,28 @@
-vim.keymap.set("n", "<leader>zZ", function()
-    require("zen-mode").setup {
-        window = {
-            width = 80,
-            options = {
-            }
-        },
-        plugins = {
-            tmux = {enabled = false}
-        }
-    }
-    require("zen-mode").toggle()
-    vim.wo.wrap = false
-    vim.wo.number = false
-    vim.wo.rnu = false
+vim.keymap.set("n", "<leader>zn", function()
+    require("zen-mode").close()
+    vim.cmd("LineNumberIntervalDisable")
+    vim.cmd("lua ColorMyPencils()")
 end)
-
 
 vim.keymap.set("n", "<leader>zz", function()
     require("zen-mode").setup {
         window = {
-            width = 100,
+            width = 80,
             options = {
-                signcolumn="no",
                 cursorcolumn=false,
-                foldcolumn="0"
             }
         },
         plugins = {
             options = {
                 enabled = true,
-                ruler = false,
                 showcmd = false,
                 cmdheight = 1,
 
             },
-            tmux = { enabled = true },
+            tmux = { enabled = false },
         }
     }
-    require("zen-mode").toggle()
-    vim.wo.wrap = true
-    vim.wo.number = true
-    vim.wo.rnu = true
+    require("zen-mode").open()
+    vim.g.line_number_interval = 10
+    vim.cmd("LineNumberIntervalEnable")
 end)
