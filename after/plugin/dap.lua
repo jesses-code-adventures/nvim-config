@@ -8,7 +8,7 @@ require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
 require("nvim-dap-virtual-text")
 require("mason-nvim-dap").setup({ensure_installed = { "python", "node2"  }})
 
-Get_python_path = function()
+local get_python_path = function()
 local venv_path = os.getenv('VIRTUAL_ENV') or os.getenv('CONDA_PREFIX')
  if venv_path then
    return venv_path .. '/bin/python'
@@ -18,7 +18,7 @@ end
 
 dap.adapters.python = {
   type = 'executable';
-  command = Get_python_path();
+  command = get_python_path();
   args = { '-m', 'debugpy.adapter' };
   options = {
     initialize_timeout_sec = 10;
@@ -32,7 +32,7 @@ dap.configurations.python = {
     request = 'launch';
     name = "Launch file";
     program = "${file}";
-    pythonPath = Get_python_path();
+    pythonPath = get_python_path();
   },
 }
 
