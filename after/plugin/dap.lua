@@ -79,7 +79,7 @@ require("dapui").setup({
     force_buffers = true,
     layouts = {
         {
-            -- You can change the order of elements in the sidebar
+            -- Sidebar
             elements = {
                 -- Provide IDs as strings or tables with "id" and "size" keys
                 { id = "watches",     size = 0.1 },
@@ -95,9 +95,9 @@ require("dapui").setup({
         -- {
         --   elements = {
         --     "repl",
-        --     "console",
+        --     -- "console",
         --   },
-        --   size = 10,
+        --   size = 5,
         --   position = "bottom", -- Can be "bottom" or "top"
         -- },
     },
