@@ -33,18 +33,31 @@ vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>FR", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
--- vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
-
-vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.config/nvim/lua/jessesmaps/packer.lua<CR>");
-
-vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd("so")
-end)
+vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>s", function()
     vim.cmd("w")
 end)
 
-vim.keymap.set("n", "<leader>py", "<cmd>!python % <CR>", { silent = false, noremap = true })
-
 vim.keymap.set("n", "<leader>km", ":Telescope keymaps<CR>")
+
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+
+local yank_group = augroup('HighlightYank', {})
+autocmd('TextYankPost', {
+    group = yank_group,
+    pattern = '*',
+    callback = function()
+        vim.highlight.on_yank({
+            higroup = 'IncSearch',
+            timeout = 40,
+        })
+    end,
+})
+local JessesGroup = augroup('JessesMaps', {})
+autocmd({ "InsertLeave" }, {
+    group = JessesGroup,
+    pattern = "*",
+    command = [[%s/\s\+$//e]],
+})

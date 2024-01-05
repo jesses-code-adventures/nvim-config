@@ -1,9 +1,20 @@
-### My Neovim Config
+# My Neovim Config
 
-Prerequisites:
+This started as a fork of ThePrimeagen's config and has become a beast of its own
+
+## Prerequisites
 
 - C++ Compiler must be installed to support treesitter
 - Node must be installed
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
+- You will have to install the language servers yourself
 
-[Stolen from ThePrimeagen and modified](https://www.youtube.com/watch?v=w7i4amO_zaE)
+## Language Servers
+- lua_ls
+- eslint
+- tsserver
+- tailwindcss
+- rust_analyzer
+- gopls
+- pyright
+- ruff
