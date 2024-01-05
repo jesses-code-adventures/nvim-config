@@ -98,6 +98,7 @@ lspconfig.pyright.setup({
 local ruff_on_attach = function(client, bufnr)
     global_on_attach(client, bufnr)
     client.server_capabilities.hoverProvider = false
+    client.server_capabilities.formattingProvider = true
 end
 
 -- Configure `ruff-lsp`.

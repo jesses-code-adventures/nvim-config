@@ -108,6 +108,7 @@ return ({
             "theHamsta/nvim-dap-virtual-text",
             { ft = "python", "mfussenegger/nvim-dap-python" },
             { ft = "go",     "leoluz/nvim-dap-go" },
+            { ft = "go",     "sebdah/vim-delve" },
             {
                 "rcarriga/nvim-dap-ui",
                 config = function()

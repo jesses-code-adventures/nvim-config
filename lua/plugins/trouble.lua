@@ -1,15 +1,5 @@
 return {
     {
-        name = "plenary",
-        "nvim-lua/plenary.nvim",
-        lazy = true
-    },
-    {
-        name = "neodev",
-        "folke/neodev.nvim",
-        lazy = true
-    },
-    {
         "folke/trouble.nvim",
         name = "trouble",
         lazy = false,
@@ -21,5 +11,5 @@ return {
             { "<leader>xl", function() require("trouble").toggle("loclist") end,               desc = "trouble location list" },
             { "gR",         function() require("trouble").toggle("lsp_references") end,        desc = "trouble lsp references" },
         }
-    }
+    },
 }
