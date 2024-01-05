@@ -5,15 +5,15 @@ return ({
     priority=1000,
     opts={
         styles = {
-            functions = {}
+            functions = {},
         },
         transparent = true,
         terminal_colors = true,
         hide_interactive_statusline = true,
         sidebars = { "qf", "vista_kind", "terminal"},
-        on_colors = function(colors)
-            colors.hint = colors.orange
-            colors.error = "#ff0000"
+        on_colours = function(colours)
+            colours.hint = colours.orange
+            colours.error = "#ff0000"
         end
     },
     config=function()
