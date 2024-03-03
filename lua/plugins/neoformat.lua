@@ -4,7 +4,6 @@ return {
         "sbdchd/neoformat",
         lazy = false,
         config = function()
-            local augroup = vim.api.nvim_create_augroup
             vim.g.neoformat_try_node_exe = 1
             vim.g.neoformat_enabled_typescript = { 'prettier' }
             vim.g.neoformat_enabled_javascript = { 'prettier' }
@@ -20,11 +19,12 @@ return {
             vim.g.neoformat_enabled_python = { 'ruff' }
             vim.g.neoformat_enabled_lua = { 'lua-format' }
 
+            local augroup = vim.api.nvim_create_augroup
             local neoformat_augroup = augroup('Neoformat', {})
             local autocmd = vim.api.nvim_create_autocmd
             autocmd('BufWritePre', {
                 group = neoformat_augroup,
-                pattern = '*.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.html,*.json,*.yaml,*.md,*.rs,*.py,*.lua',
+                pattern = '*.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.html,*.json,*.yaml,*.md,*.rs,*.py,*.lua,*.templ',
                 command = 'Neoformat',
             })
         end

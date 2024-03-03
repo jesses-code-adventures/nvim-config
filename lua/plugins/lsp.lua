@@ -1,18 +1,76 @@
 return ({
     {
-        name = "lspconfig",
+        "williamboman/mason.nvim",
+        name="mason",
+        config = function()
+            require("mason").setup()
+        end
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        name="mason-lspconfig",
+        config = function()
+            require("mason-lspconfig").setup({
+                ensure_installed = {
+                    "lua_ls",
+                    "rust_analyzer",
+                    "tsserver",
+                    "html",
+                    "jsonls",
+                    "marksman",
+                    "templ",
+                    "tailwindcss",
+                    "taplo",
+                    "vimls",
+                    "gopls",
+                    "htmx",
+                    "prismals",
+                    "bashls",
+                    "snyk_ls",
+                    "pyright",
+                    "ruff_lsp",
+                    "sqlls"
+                }
+            })
+        end
+    },
+    {
         "neovim/nvim-lspconfig",
+        name = "lspconfig",
         dependencies = {
             'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-nvim-lua',
             'hrsh7th/cmp-buffer',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-cmdline',
             'hrsh7th/nvim-cmp',
             'petertriho/cmp-git',
-            'L3MON4D3/LuaSnip'
+            { 'prisma/vim-prisma',
+                ft = 'prisma' },
+            'L3MON4D3/LuaSnip',
+            {
+                'laytan/tailwind-sorter.nvim',
+                dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim' },
+                build = 'cd formatter && npm i && npm run build',
+                config = true
+                -- function()
+                --     local augroup = vim.api.nvim_create_augroup
+                --     local tailwind_sorter_augroup = augroup("TailwindSorter", {})
+                --     vim.api.nvim_create_autocmd({
+                --         "BufWritePre",
+                --         group = tailwind_sorter_augroup,
+                --         pattern = '*.templ',
+                --         command = 'TailwindSort',
+                --     }
+                --     )
+                -- end
+            },
         },
+        event = { "BufReadPost", "BufNewFile" },
+        cmd = { "LspInfo", "LspInstall", "LspUninstall" },
         lazy = true,
         config = function()
+            vim.keymap.set("n", "<leader>tws", ":TailwindSort<CR>")
             local cmp = require("cmp")
             cmp.setup({
                 snippet = {
@@ -27,7 +85,6 @@ return ({
                 mapping = cmp.mapping.preset.insert({
                     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
                     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                    ['<C-Space>'] = cmp.mapping.complete(),
                     ['<C-e>'] = cmp.mapping.abort(),
                     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                 }),

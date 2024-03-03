@@ -5,25 +5,29 @@ vim.diagnostic.config({
     virtual_text = { source = "always", severity_sort = "true" }
 })
 
---- Global lsp onattach callback function
--- @param client: table The LSP client
--- @param bufnr: number Buffer number for the attached buffer-- @type: fun(client: Client, bufnr: str)
+vim.filetype.add({
+    extension = {
+        templ = "templ"
+    }
+})
+
+--- @param bufnr integer
 local global_on_attach = function(_, bufnr)
     local opts = { buffer = bufnr, remap = false }
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
     vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
     vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, opts)
+    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, opts)
     vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
     vim.keymap.set('n', '<leader>do', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
     vim.keymap.set('n', '<leader>dq', '<cmd>lua vim.diagnostic.setqflist()<CR>', { noremap = true, silent = true })
-    vim.keymap.set('n', '<leader>d[', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
-    vim.keymap.set('n', '<leader>d]', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>]d', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
 end
 
 lspconfig.tsserver.setup({
@@ -46,14 +50,22 @@ lspconfig.rust_analyzer.setup({
     capabilities=capabilities
 })
 
-lspconfig.tailwindcss.setup({
+lspconfig.marksman.setup({
     on_attach = global_on_attach,
-    capabilities=capabilities
+    capabilities=capabilities,
+    filetypes={"markdown", "md"}
 })
 
 lspconfig.lua_ls.setup({
     on_attach = global_on_attach,
     capabilities=capabilities,
+    settings={
+        Lua = {
+            diagnostics = {
+                globals = { "vim", "it", "describe", "before_each", "after_each" },
+            }
+        }
+    },
     on_init = function(client)
         local path = client.workspace_folders[1].name
         if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
@@ -72,9 +84,8 @@ lspconfig.lua_ls.setup({
     end
 })
 
---- Global lsp onattach callback function
--- @param client: table The LSP client
--- @param bufnr: number Buffer number for the attached buffer-- @type: fun(client: Client, bufnr: str)
+--- @param client table
+--- @param bufnr number
 local pyright_on_attach = function(client, bufnr)
     global_on_attach(client, bufnr)
     client.server_capabilities.hoverProvider = true
@@ -92,9 +103,8 @@ lspconfig.pyright.setup({
     }
 })
 
---- Global lsp onattach callback function
--- @param client: table The LSP client
--- @param bufnr: number Buffer number for the attached buffer-- @type: fun(client: Client, bufnr: str)
+--- @param client table
+--- @param bufnr number
 local ruff_on_attach = function(client, bufnr)
     global_on_attach(client, bufnr)
     client.server_capabilities.hoverProvider = false
@@ -114,3 +124,40 @@ lspconfig.ruff_lsp.setup {
         }
     }
 }
+
+--- @param client table
+--- @param bufnr number
+local tailwind_on_attach = function(client, bufnr)
+    global_on_attach(client, bufnr)
+end
+
+lspconfig.tailwindcss.setup({
+    on_attach = tailwind_on_attach,
+    capabilities=capabilities,
+    filetypes = {"html", "css", "scss", "javascript", "typescript", "svelte", "vue", "templ", "gohtml", "react", "astro", "markdown", "md"},
+    init_options = { userLanguages = { templ = "html" } },
+})
+
+lspconfig.templ.setup({
+    on_attach = global_on_attach,
+    capabilities=capabilities
+})
+
+lspconfig.html.setup({
+    on_attach = global_on_attach,
+    capabilities = capabilities,
+    filetypes = { "html"},
+})
+
+lspconfig.htmx.setup({
+    on_attach = global_on_attach,
+    capabilities = capabilities,
+    filetypes = { "html", "templ" },
+})
+
+
+lspconfig.prismals.setup({
+    on_attach = global_on_attach,
+    capabilities = capabilities,
+    filetypes = { "prisma" },
+})

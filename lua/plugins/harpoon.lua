@@ -3,7 +3,7 @@ return {
     name = "harpoon",
     cmd = "Harpoon",
     branch = "harpoon2",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim", lazy=false},
     lazy=false,
     keys={
         {"<leader>a", function() Harpoon:list():append() end, desc="append file to harpoon list"},
@@ -15,6 +15,6 @@ return {
         {"<C-x>", function() Harpoon:list():clear() end, desc="close harpoon"}
     },
     config=function()
-        Harpoon = require("harpoon")
+        Harpoon = require("harpoon"):setup()
     end
 }

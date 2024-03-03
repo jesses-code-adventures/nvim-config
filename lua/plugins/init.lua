@@ -21,5 +21,5 @@ return {
             { "<leader>xl", function() require("trouble").toggle("loclist") end,               desc = "trouble location list" },
             { "gR",         function() require("trouble").toggle("lsp_references") end,        desc = "trouble lsp references" },
         }
-    }
+    },
 }

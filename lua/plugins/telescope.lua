@@ -22,6 +22,7 @@ return ({
                 i = { ["<c-t"] = require("trouble").open_with_trouble },
                 n = { ["<c-t"] = require("trouble").open_with_trouble },
             },
+            file_ignore_patterns = { ".templ.go" }
         },
-    },
+    }
 })

@@ -5,7 +5,7 @@ return {
         cmd = "Copilot",
         event = "InsertEnter",
         keys = {
-            {"<C-y>", mode={"i"}, function() require('copilot.suggestion').accept_line() end, desc="copilot accept suggestion"},
+            {"<C-Space>", mode={"i"}, function() require('copilot.suggestion').accept_line() end, desc="copilot accept suggestion"},
             {"<C-d>", mode={"i"}, function() require('copilot.suggestion').dismiss() end, desc="copilot dismiss suggestion"},
         },
         config = function()
