@@ -16,11 +16,14 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- copy to system clipboard
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 -- delete to system clipboard
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+
+vim.keymap.set("n", "<left>", function() print("use h you scrub") end)
+vim.keymap.set("n", "<right>", function() print("use l you scrub") end)
 
 -- ctrl c to quit insert mode
 vim.keymap.set("i", "<C-e>", "<Esc>")

@@ -1,14 +1,14 @@
 return ({
     {
         "williamboman/mason.nvim",
-        name="mason",
+        name = "mason",
         config = function()
             require("mason").setup()
         end
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        name="mason-lspconfig",
+        name = "mason-lspconfig",
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
@@ -40,6 +40,7 @@ return ({
         dependencies = {
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-nvim-lua',
+            { 'j-hui/fidget.nvim', opts = {} },
             'hrsh7th/cmp-buffer',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-cmdline',
@@ -53,17 +54,6 @@ return ({
                 dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim' },
                 build = 'cd formatter && npm i && npm run build',
                 config = true
-                -- function()
-                --     local augroup = vim.api.nvim_create_augroup
-                --     local tailwind_sorter_augroup = augroup("TailwindSorter", {})
-                --     vim.api.nvim_create_autocmd({
-                --         "BufWritePre",
-                --         group = tailwind_sorter_augroup,
-                --         pattern = '*.templ',
-                --         command = 'TailwindSort',
-                --     }
-                --     )
-                -- end
             },
         },
         event = { "BufReadPost", "BufNewFile" },
