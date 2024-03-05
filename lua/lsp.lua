@@ -47,19 +47,32 @@ lspconfig.gopls.setup({
 
 lspconfig.rust_analyzer.setup({
     on_attach = global_on_attach,
-    capabilities=capabilities
+    capabilities = capabilities
 })
 
 lspconfig.marksman.setup({
     on_attach = global_on_attach,
-    capabilities=capabilities,
-    filetypes={"markdown", "md"}
+    capabilities = capabilities,
+    filetypes = { "markdown", "md" }
+})
+
+lspconfig.yamlls.setup({
+    on_attach = global_on_attach,
+    capabilities = capabilities,
+    settings = {
+        yaml = {
+            schemas = {
+                ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*"
+            },
+            schemaDownload = true,
+        }
+    },
 })
 
 lspconfig.lua_ls.setup({
     on_attach = global_on_attach,
-    capabilities=capabilities,
-    settings={
+    capabilities = capabilities,
+    settings = {
         Lua = {
             diagnostics = {
                 globals = { "vim", "it", "describe", "before_each", "after_each" },
@@ -94,7 +107,7 @@ end
 
 lspconfig.pyright.setup({
     on_attach = pyright_on_attach,
-    capabilities=capabilities,
+    capabilities = capabilities,
     init_options = {
         settings = {
             -- Any extra CLI arguments for `pyright` go here.
@@ -116,7 +129,7 @@ end
 -- For the default config, along with instructions on how to customize the settings
 lspconfig.ruff_lsp.setup {
     on_attach = ruff_on_attach,
-    capabilities=capabilities,
+    capabilities = capabilities,
     init_options = {
         settings = {
             -- Any extra CLI arguments for `ruff` go here.
@@ -133,20 +146,20 @@ end
 
 lspconfig.tailwindcss.setup({
     on_attach = tailwind_on_attach,
-    capabilities=capabilities,
-    filetypes = {"html", "css", "scss", "javascript", "typescript", "svelte", "vue", "templ", "gohtml", "react", "astro", "markdown", "md"},
+    capabilities = capabilities,
+    filetypes = { "html", "css", "scss", "javascript", "typescript", "svelte", "vue", "templ", "gohtml", "react", "astro", "markdown", "md" },
     init_options = { userLanguages = { templ = "html" } },
 })
 
 lspconfig.templ.setup({
     on_attach = global_on_attach,
-    capabilities=capabilities
+    capabilities = capabilities
 })
 
 lspconfig.html.setup({
     on_attach = global_on_attach,
     capabilities = capabilities,
-    filetypes = { "html"},
+    filetypes = { "html" },
 })
 
 lspconfig.htmx.setup({

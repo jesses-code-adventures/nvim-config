@@ -29,7 +29,8 @@ return ({
                     "snyk_ls",
                     "pyright",
                     "ruff_lsp",
-                    "sqlls"
+                    "sqlls",
+                    "yamlls"
                 }
             })
         end

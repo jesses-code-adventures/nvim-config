@@ -5,6 +5,7 @@ return {
         "nvim-lua/plenary.nvim",
         lazy = true
     },
+    { "https://github.com/nvim-tree/nvim-web-devicons", lazy = false, event = "VimEnter" },
     { -- Adds git related signs to the gutter, as well as utilities for managing changes
         'lewis6991/gitsigns.nvim',
         opts = {
@@ -17,7 +18,7 @@ return {
             },
         },
     },
-    {                   -- Useful plugin to show you pending keybinds.
+    {                       -- Useful plugin to show you pending keybinds.
         'folke/which-key.nvim',
         event = 'VimEnter', -- Sets the loading event to 'VimEnter'
         config = function() -- This is the function that runs, AFTER loading

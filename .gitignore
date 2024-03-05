@@ -1,4 +1,4 @@
 plugin/packer_compiled.lua
 pack/
 *.DS_Store
-
+install_nerdfonts

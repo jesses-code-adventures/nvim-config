@@ -9,7 +9,6 @@ return {
                 width = 30,
             }
         end,
-        dependencies = { "https://github.com/nvim-tree/nvim-web-devicons" },
         keys = {
             { "<leader>xx", function() require("trouble").toggle() end,                        desc = "toggle trouble" },
             { "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end, desc = "trouble workspace diagnostics" },
