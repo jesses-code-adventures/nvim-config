@@ -45,8 +45,28 @@ lspconfig.gopls.setup({
     capabilities = capabilities
 })
 
+--- @param client table
+--- @param bufnr number
+local rust_on_attach = function(client, bufnr)
+    global_on_attach(client, bufnr)
+    if vim.fn.getcwd() == "/Users/jessewilliams/Coding/stm-test-rs" then
+        print("setting the target in rust analyzer")
+        client.config.settings = {
+            ["rust-analyzer"] = {
+                cargo = {
+                    target = "thumbv7em-none-eabihf",
+                },
+                check = {
+                    allTargets = false,
+                },
+            },
+        }
+        client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+    end
+end
+
 lspconfig.rust_analyzer.setup({
-    on_attach = global_on_attach,
+    on_attach = rust_on_attach,
     capabilities = capabilities
 })
 
