@@ -11,13 +11,4 @@ This started as a fork of ThePrimeagen's config and has become a beast of its ow
 
 ### Windows Prerequisites
 - Install latest LLVM from [LLVM github](https://github.com/llvm/llvm-project/releases)
-
-## Language Servers
-- lua_ls
-- eslint
-- tsserver
-- tailwindcss
-- rust_analyzer
-- gopls
-- pyright
-- ruff
+- [Install latest GCC w/ clang, llvm, lldb etc. windows 10 or higher should get the UCRT runtime](https://winlibs.com/)
