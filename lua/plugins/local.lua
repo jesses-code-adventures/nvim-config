@@ -1,7 +1,13 @@
+local path = "~/.config/local-plugs/trying_stuff.nvim"
+
+if not vim.loop.fs_stat(path) then
+    return {}
+end
+
 return {
     {
         "trying_stuff",
-        dir = "~/.config/local-plugs/trying_stuff.nvim",
+        dir = path,
         dev=true,
         config = function()
             vim.opt.runtimepath:append(',~/.config/local-plugs/trying_stuff.nvim')

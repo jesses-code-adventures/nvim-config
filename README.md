@@ -9,6 +9,9 @@ This started as a fork of ThePrimeagen's config and has become a beast of its ow
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - You will have to install the language servers yourself
 
+### Windows Prerequisites
+- Install latest LLVM from [LLVM github](https://github.com/llvm/llvm-project/releases)
+
 ## Language Servers
 - lua_ls
 - eslint
