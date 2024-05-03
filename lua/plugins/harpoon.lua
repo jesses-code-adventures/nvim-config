@@ -6,7 +6,7 @@ return {
     dependencies = { "nvim-lua/plenary.nvim", lazy=false},
     lazy=false,
     keys={
-        {"<leader>a", function() Harpoon:list():append() end, desc="append file to harpoon list"},
+        {"<leader>a", function() Harpoon:list():add() end, desc="append file to harpoon list"},
         {"<C-b>", function() Harpoon.ui:toggle_quick_menu(Harpoon:list()) end, desc="harpoon toggle menu"},
         {"<C-j>", function() Harpoon:list():select(1) end, desc="harpoon select first buffer"},
         {"<C-k>", function() Harpoon:list():select(2) end, desc="harpoon select second buffer"},
