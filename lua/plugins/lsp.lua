@@ -12,12 +12,14 @@ return ({
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
+                    "cssls",
                     "lua_ls",
                     "rust_analyzer",
                     "tsserver",
                     "html",
                     "jsonls",
                     "marksman",
+                    "svelte",
                     "templ",
                     "tailwindcss",
                     "taplo",
@@ -47,9 +49,11 @@ return ({
             'hrsh7th/cmp-cmdline',
             'hrsh7th/nvim-cmp',
             'petertriho/cmp-git',
-            { 'prisma/vim-prisma',
-                ft = 'prisma' },
-            'L3MON4D3/LuaSnip',
+            { 'prisma/vim-prisma', ft = 'prisma' },
+            {
+                'L3MON4D3/LuaSnip',
+
+            },
             {
                 'laytan/tailwind-sorter.nvim',
                 dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim' },

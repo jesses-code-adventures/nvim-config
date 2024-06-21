@@ -76,6 +76,27 @@ lspconfig.marksman.setup({
     filetypes = { "markdown", "md" }
 })
 
+-- Assuming `capabilities` is defined somewhere in your config
+local clangd_capabilities = vim.tbl_deep_extend('force', capabilities, {
+  offsetEncoding = { 'utf-16' }
+})
+
+lspconfig.clangd.setup({
+    on_attach = global_on_attach,
+    cmd = { "clangd" },
+    filetypes = { "c", "cpp", "objc", "objcpp" },
+    root_dir = require 'lspconfig'.util.root_pattern(".clangd", ".git", "compile_commands.json", "compile_flags.txt"),
+    single_file_support = true,
+    settings = {
+        clangd = {
+            compileFlags = {
+                add = { "-F/Library/Frameworks", "-framework SDL2" }
+            }
+        }
+    },
+    capabilities = clangd_capabilities
+})
+
 lspconfig.yamlls.setup({
     on_attach = global_on_attach,
     capabilities = capabilities,
@@ -122,12 +143,23 @@ lspconfig.lua_ls.setup({
 local pyright_on_attach = function(client, bufnr)
     global_on_attach(client, bufnr)
     client.server_capabilities.hoverProvider = true
+    client.server_capabilities.formattingProvider = false
 end
 
 
 lspconfig.pyright.setup({
     on_attach = pyright_on_attach,
     capabilities = capabilities,
+    settings = {
+        pyright = {
+            disableOrganiseImports = true
+        },
+        python = {
+            analysis = {
+                ignore = { "*" }
+            },
+        },
+    },
     init_options = {
         settings = {
             -- Any extra CLI arguments for `pyright` go here.
@@ -167,11 +199,16 @@ end
 lspconfig.tailwindcss.setup({
     on_attach = tailwind_on_attach,
     capabilities = capabilities,
-    filetypes = { "html", "css", "scss", "javascript", "typescript", "svelte", "vue", "templ", "gohtml", "react", "astro", "markdown", "md" },
+    filetypes = { "html", "css", "scss", "javascript", "typescript", "svelte", "vue", "templ", "gohtml", "react", "astro" },
     init_options = { userLanguages = { templ = "html" } },
 })
 
 lspconfig.templ.setup({
+    on_attach = global_on_attach,
+    capabilities = capabilities
+})
+
+lspconfig.svelte.setup({
     on_attach = global_on_attach,
     capabilities = capabilities
 })
@@ -186,6 +223,12 @@ lspconfig.htmx.setup({
     on_attach = global_on_attach,
     capabilities = capabilities,
     filetypes = { "html", "templ" },
+})
+
+lspconfig.taplo.setup({
+    on_attach = global_on_attach,
+    capabilities = capabilities,
+    filetypes = { "toml" },
 })
 
 
