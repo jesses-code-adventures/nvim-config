@@ -4,6 +4,12 @@ return {
         "sbdchd/neoformat",
         lazy = false,
         config = function()
+            -- Configure Prettier to use 4-space indents
+            vim.g.neoformat_typescript_prettier = {
+                exe = "prettier",
+                args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--tab-width", "4"},
+                stdin = 1
+            }
             vim.g.neoformat_try_node_exe = 1
             vim.g.neoformat_enabled_typescript = { 'prettier' }
             vim.g.neoformat_enabled_javascript = { 'prettier' }

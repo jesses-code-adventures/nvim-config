@@ -5,7 +5,7 @@ return {
         lazy = false,
         config = function()
             require("trouble").setup {
-                position = "right",
+                position = "bottom",
                 width = 30,
             }
         end,
