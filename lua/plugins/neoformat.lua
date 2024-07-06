@@ -24,13 +24,14 @@ return {
             vim.g.neoformat_enabled_rust = { 'rustfmt' }
             vim.g.neoformat_enabled_python = { 'ruff' }
             vim.g.neoformat_enabled_lua = { 'lua-format' }
+            vim.g.neoformat_enabled_go = { 'gofmt' }
 
             local augroup = vim.api.nvim_create_augroup
             local neoformat_augroup = augroup('Neoformat', {})
             local autocmd = vim.api.nvim_create_autocmd
             autocmd('BufWritePre', {
                 group = neoformat_augroup,
-                pattern = '*.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.html,*.json,*.yaml,*.md,*.rs,*.py,*.lua,*.templ',
+                pattern = '*.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.html,*.json,*.yaml,*.md,*.rs,*.py,*.lua,*.templ,*.go',
                 command = 'Neoformat',
             })
         end
