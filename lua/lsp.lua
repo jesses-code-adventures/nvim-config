@@ -49,7 +49,7 @@ lspconfig.gopls.setup({
 --- @param bufnr number
 local rust_on_attach = function(client, bufnr)
     global_on_attach(client, bufnr)
-    if vim.fn.getcwd() == "/Users/jessewilliams/Coding/stm-test-rs" then
+    if vim.fn.getcwd() == "/Users/jessewilliams/Coding/stm-test-rs" or vim.fn.getcwd() == "/Users/jessewilliams/Coding/stm-experiment-2" then
         print("setting the target in rust analyzer")
         client.config.settings = {
             ["rust-analyzer"] = {
@@ -78,7 +78,7 @@ lspconfig.marksman.setup({
 
 -- Assuming `capabilities` is defined somewhere in your config
 local clangd_capabilities = vim.tbl_deep_extend('force', capabilities, {
-  offsetEncoding = { 'utf-16' }
+    offsetEncoding = { 'utf-16' }
 })
 
 lspconfig.clangd.setup({

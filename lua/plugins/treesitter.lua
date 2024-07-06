@@ -14,7 +14,7 @@ end
 
 return ({
     "nvim-treesitter/nvim-treesitter",
-    name = "treesitter",
+    name = "nvim-treesitter",
     dependencies = {
         {
             "nvim-treesitter/nvim-treesitter-context",
@@ -44,7 +44,7 @@ return ({
         require("nvim-treesitter.configs").setup({
             ensure_installed = { "python", "rust", "typescript", "javascript", "prisma",  "lua", "sql", "ssh_config", "svelte", "tsx", "yaml", "toml", "vimdoc", "c", "markdown", "markdown_inline"},
             sync_install = false,
-            auto_install = false,
+            auto_install = true,
             highlight = {
                 enable = true
             },

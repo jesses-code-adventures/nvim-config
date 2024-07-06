@@ -9,8 +9,9 @@ return {
                 width = 30,
             }
         end,
+        cmd = "Trouble",
         keys = {
-            { "<leader>xx", function() require("trouble").toggle() end,                        desc = "toggle trouble" },
+            { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>",                        desc = "toggle trouble" },
             { "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end, desc = "trouble workspace diagnostics" },
             { "<leader>xd", function() require("trouble").toggle("document_diagnostics") end,  desc = "trouble document diagnostics" },
             { "<leader>xq", function() require("trouble").toggle("quickfix") end,              desc = "trouble quickfix list" },
