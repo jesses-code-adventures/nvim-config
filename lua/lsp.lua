@@ -70,6 +70,11 @@ lspconfig.rust_analyzer.setup({
     capabilities = capabilities
 })
 
+lspconfig.zls.setup({
+    on_attach = rust_on_attach,
+    capabilities = capabilities
+})
+
 lspconfig.marksman.setup({
     on_attach = global_on_attach,
     capabilities = capabilities,

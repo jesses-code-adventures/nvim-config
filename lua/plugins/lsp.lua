@@ -32,7 +32,8 @@ return ({
                     "pyright",
                     "ruff_lsp",
                     "sqlls",
-                    "yamlls"
+                    "yamlls",
+                    "zls"
                 }
             })
         end
