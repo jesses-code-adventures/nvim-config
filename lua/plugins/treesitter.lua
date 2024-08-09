@@ -35,14 +35,11 @@ return ({
     lazy=false,
     config = function()
         if getOsName() == "Windows" then
-            -- print("compiling using clang for windows")
             require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }
             require 'nvim-treesitter.install'.prefer_git = false
-        else
-            -- print("compiling default behaviour outside windows")
         end
         require("nvim-treesitter.configs").setup({
-            ensure_installed = { "python", "rust", "typescript", "javascript", "prisma",  "lua", "sql", "ssh_config", "svelte", "tsx", "yaml", "toml", "vimdoc", "c", "markdown", "markdown_inline"},
+            ensure_installed = { "python", "rust", "typescript", "javascript", "prisma",  "lua", "sql", "ssh_config", "svelte", "tsx", "yaml", "toml", "vimdoc", "c", "markdown", "markdown_inline", "go"},
             sync_install = false,
             auto_install = true,
             highlight = {

@@ -17,6 +17,7 @@ return ({
         { "<leader>pb", "<cmd>Telescope buffers<cr>",                                                                  desc = "fuzzy find on open buffers" },
         { '<leader>vh', "<cmd>Telescope help_tags<cr>",                                                                desc = "get help tags" },
         { '<C-p>',      "<cmd>Telescope git_files<cr>",                                                                desc = "git files fuzzy find" },
+        { '<leader>km', "<cmd>Telescope keymaps<cr>",                                                                 desc = "keymaps" },
     },
     opts = {
         defaults = {
