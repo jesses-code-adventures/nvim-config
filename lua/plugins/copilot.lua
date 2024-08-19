@@ -10,7 +10,7 @@ return {
         },
         config = function()
             Copilot = require("copilot").setup({
-                suggestion={enabled=true, auto_trigger=true}
+                suggestion={enabled=false, auto_trigger=true}
             })
         end,
 
