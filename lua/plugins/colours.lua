@@ -32,7 +32,7 @@ return ({
   --       transparent_background_level = 1,
   --       ui_contrast = "high",
   --     })
-  --     -- vim.cmd.colorscheme("everforest")
+  --     vim.cmd.colorscheme("everforest")
   --   end,
   -- }
 })
