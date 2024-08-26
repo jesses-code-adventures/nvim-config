@@ -15,6 +15,7 @@ return {
         dir = testing and local_dev_path or nil,
         dev = testing,
         dependencies = { 'nvim-lua/plenary.nvim' },
+        event = { "BufReadPost", "BufNewFile" },
         config = function()
             if testing then
                 vim.opt.runtimepath:append(',~/.config/local-plugs/dingllm.nvim')
@@ -48,7 +49,6 @@ return {
             vim.keymap.set({ 'n', 'v' }, '<leader>lr', openai_replace, { desc = 'llm openai' })
             vim.keymap.set({ 'n', 'v' }, '<leader>lh', openai_help, { desc = 'llm openai_help' })
         end,
-        lazy = false
     }
 }
 

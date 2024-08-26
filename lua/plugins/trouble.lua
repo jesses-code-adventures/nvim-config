@@ -2,13 +2,13 @@ return {
     {
         "folke/trouble.nvim",
         name = "trouble",
-        lazy = false,
         config = function()
             require("trouble").setup {
                 position = "bottom",
                 width = 30,
             }
         end,
+        event = { "BufReadPost", "BufNewFile" },
         cmd = "Trouble",
         keys = {
             { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>",                        desc = "toggle trouble" },

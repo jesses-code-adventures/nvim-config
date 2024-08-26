@@ -21,18 +21,18 @@ return ({
       vim.cmd.colorscheme("solarized-osaka")
     end
   },
-  {
-    "neanias/everforest-nvim",
-    version = false,
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("everforest").setup({
-        background = "soft",
-        transparent_background_level = 1,
-        ui_contrast = "high",
-      })
-      -- vim.cmd.colorscheme("everforest")
-    end,
-  }
+  -- {
+  --   "neanias/everforest-nvim",
+  --   version = false,
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require("everforest").setup({
+  --       background = "soft",
+  --       transparent_background_level = 1,
+  --       ui_contrast = "high",
+  --     })
+  --     -- vim.cmd.colorscheme("everforest")
+  --   end,
+  -- }
 })

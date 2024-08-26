@@ -4,7 +4,6 @@ return {
     cmd = "Harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim", lazy=false},
-    lazy=false,
     keys={
         {"<leader>a", function() Harpoon:list():add() end, desc="append file to harpoon list"},
         {"<C-b>", function() Harpoon.ui:toggle_quick_menu(Harpoon:list()) end, desc="harpoon toggle menu"},

@@ -55,8 +55,6 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
--- vim.keymap.set("n", "<leader>ve", ":Telescope venom virtualenvs<CR>")
-
 
 -- paste vim clipboard without copying selection to clipboard
 vim.keymap.set("x", "<leader>p", [["_dP]])
@@ -111,7 +109,6 @@ autocmd({ "InsertLeave" }, {
 })
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-print(lazypath)
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
         "git",

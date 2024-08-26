@@ -2,9 +2,14 @@ return {
     {
         'numToStr/Comment.nvim',
         name = "comment",
-        lazy = false,
+        event = { "BufReadPost", "BufNewFile" },
         config = function()
             require("Comment").setup()
         end
+    },
+    {
+        'JoosepAlviste/nvim-ts-context-commentstring',
+        ft = { "templ", "tsx", "jsx", "markdown", "svelte", "typescript", "javascript" },
+        event = { "BufReadPost", "BufNewFile" },
     },
 }

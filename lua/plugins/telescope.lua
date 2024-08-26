@@ -8,7 +8,6 @@ return ({
         'nvim-lua/plenary.nvim',
         "https://github.com/nvim-tree/nvim-web-devicons"
     },
-    lazy = false,
     keys = {
         { "<leader>pf", "<cmd>Telescope find_files<cr>",                                                               desc = "fuzzy find on file names" },
         { "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>" },
@@ -19,13 +18,29 @@ return ({
         { '<C-p>',      "<cmd>Telescope git_files<cr>",                                                                desc = "git files fuzzy find" },
         { '<leader>km', "<cmd>Telescope keymaps<cr>",                                                                 desc = "keymaps" },
     },
-    opts = {
-        defaults = {
-            mappings = {
-                i = { ["<c-t"] = require("trouble").open_with_trouble },
-                n = { ["<c-t"] = require("trouble").open_with_trouble },
+
+
+    config = function()
+        local trouble = require("trouble")
+        require('telescope').setup({
+            defaults = {
+                mappings = {
+                    i = { ["<c-t"] = trouble.open_with_trouble },
+                    n = { ["<c-t"] = trouble.open_with_trouble },
+                },
+                file_ignore_patterns = { ".templ.go" }
             },
-            file_ignore_patterns = { ".templ.go" }
-        },
-    }
+        })
+    end,
+
+
+    -- opts = {
+    --     defaults = {
+    --         mappings = {
+    --             i = { ["<c-t"] = require("trouble").open_with_trouble },
+    --             n = { ["<c-t"] = require("trouble").open_with_trouble },
+    --         },
+    --         file_ignore_patterns = { ".templ.go" }
+    --     },
+    -- }
 })

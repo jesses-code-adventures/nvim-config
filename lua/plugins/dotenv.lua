@@ -26,6 +26,5 @@ return {
         config = function()
             require("dotenv").setup()
         end,
-        lazy=false
     }
 }
