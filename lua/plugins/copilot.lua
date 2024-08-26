@@ -1,16 +1,8 @@
 local check_node_installed = function()
-    local handle = io.popen("node -v")
-    if handle == nil then
-        return false
-    end
-    local result = handle:read("*a")
-    handle:close()
-    if result == '' then
-        return false
-    end
-    return true
+    -- redirect stdout and stderr to /dev/null to prevent any output
+    local is_node_installed = os.execute("command -v node >/dev/null 2>&1")
+    return is_node_installed == 0
 end
-
 return {
     {
         "zbirenbaum/copilot.lua",
