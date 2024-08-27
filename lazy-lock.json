@@ -8,6 +8,7 @@
   "cmp-path": { "branch": "main", "commit": "91ff86cd9c29299a64f968ebb45846c485725f23" },
   "comment": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
   "copilot": { "branch": "master", "commit": "86537b286f18783f8b67bccd78a4ef4345679625" },
+  "dingllm.nvim": { "branch": "master", "commit": "56e3f960a6f9383e4b5598100f1d1ff61c4afe88" },
   "dotenv.nvim": { "branch": "main", "commit": "559aa5ec5686a815bab415cbfb204ec4c07c56df" },
   "fidget.nvim": { "branch": "main", "commit": "d855eed8a06531a7e8fd0684889b2943f373c469" },
   "gitsigns.nvim": { "branch": "main", "commit": "58bd9e98d8e3c5a1c98af312e85247ee1afd3ed2" },
