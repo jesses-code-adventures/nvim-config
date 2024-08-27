@@ -4,7 +4,7 @@ local local_dev_path = "~/.config/local-plugs/dingllm"
 
 local_dev_path = vim.fn.expand(local_dev_path)
 
-if not vim.loop.fs_stat(local_dev_path) then
+if testing and not vim.loop.fs_stat(local_dev_path) then
     print("dingllm.nvim not found...")
     return {}
 end
