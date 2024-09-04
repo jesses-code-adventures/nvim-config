@@ -101,12 +101,6 @@ autocmd('TextYankPost', {
         })
     end,
 })
-local JessesGroup = augroup('JessesMaps', {})
-autocmd({ "InsertLeave" }, {
-    group = JessesGroup,
-    pattern = "*",
-    command = [[%s/\s\+$//e]],
-})
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

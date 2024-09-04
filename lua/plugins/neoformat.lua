@@ -17,7 +17,7 @@ return {
             vim.g.neoformat_enabled_typescriptreact = { 'prettier' }
             vim.g.neoformat_enabled_json = { 'prettier' }
             vim.g.neoformat_enabled_yaml = { 'prettier' }
-            vim.g.neoformat_enabled_markdown = { 'prettier' }
+            -- vim.g.neoformat_enabled_markdown = { 'prettier' }
             vim.g.neoformat_enabled_html = { 'prettier' }
             vim.g.neoformat_enabled_css = { 'prettier' }
             vim.g.neoformat_enabled_scss = { 'prettier' }
@@ -31,7 +31,7 @@ return {
             local autocmd = vim.api.nvim_create_autocmd
             autocmd('BufWritePre', {
                 group = neoformat_augroup,
-                pattern = '*.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.html,*.json,*.yaml,*.md,*.rs,*.py,*.lua,*.templ,*.go',
+                pattern = '*.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.html,*.json,*.yaml,*.rs,*.py,*.lua,*.templ,*.go',
                 command = 'Neoformat',
             })
         end
