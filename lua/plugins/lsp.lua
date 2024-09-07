@@ -219,11 +219,11 @@ return ({
                 capabilities = capabilities
             })
 
-            lsp.marksman.setup({
-                on_attach = global_on_attach,
-                capabilities = capabilities,
-                filetypes = { "markdown", "md" }
-            })
+            -- lsp.marksman.setup({
+            --     on_attach = global_on_attach,
+            --     capabilities = capabilities,
+            --     filetypes = { "markdown", "md" }
+            -- })
 
             lsp.clangd.setup({
                 on_attach = global_on_attach,

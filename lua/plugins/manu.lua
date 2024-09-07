@@ -11,6 +11,7 @@ return {
         "manu",
         dir = path,
         dev=true,
+        enabled=false,
         config = function()
             local manu = require("manu")
             manu.setup()
