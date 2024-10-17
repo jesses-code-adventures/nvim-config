@@ -93,6 +93,13 @@ return ({
                 })
             })
 
+            cmp.setup({
+              -- completion for dadbod
+              sources = {
+                { name = 'vim-dadbod-completion' }
+              }
+            })
+
 
             -- Use buffer source for `/` and `?`
             cmp.setup.cmdline({ '/', '?' }, {
@@ -194,7 +201,7 @@ return ({
                 offsetEncoding = { 'utf-16' }
             })
 
-            lsp.tsserver.setup({
+            lsp.ts_ls.setup({
                 on_attach = global_on_attach,
                 capabilities = capabilities
             })
@@ -248,7 +255,8 @@ return ({
                 settings = {
                     yaml = {
                         schemas = {
-                            ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*"
+                            ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+                            ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "*openapispec.yaml"
                         },
                         schemaDownload = true,
                     }
