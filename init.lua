@@ -45,41 +45,25 @@ vim.g.netrw_winsize = 25
 
 ------------- set global keymaps
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-
-vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
-
--- paste vim clipboard without copying selection to clipboard
-vim.keymap.set("x", "<leader>p", [["_dP]])
-
--- copy to system clipboard
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
-
--- delete to system clipboard
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
-
-vim.keymap.set("n", "<left>", function() print("use h you scrub") end)
-vim.keymap.set("n", "<right>", function() print("use l you scrub") end)
-
--- ctrl c to quit insert mode
-vim.keymap.set("i", "<C-e>", "<Esc>")
-
-vim.keymap.set("n", "Q", "<nop>")
-
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
-
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
-
-vim.keymap.set("n", "<leader>FR", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open Ex mode" })
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+vim.keymap.set("n", "J", "mzJ`z", { desc = "Join line below" })
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
+vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result and center" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result and center" })
+vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without overwriting register" })
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
+vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Yank line to system clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without overwriting register" })
+vim.keymap.set("i", "<C-e>", "<Esc>", { desc = "Exit insert mode" })
+vim.keymap.set("n", "Q", "<nop>", { desc = "Disable Q" })
+vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format code" })
+vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Next location and center" })
+vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Previous location and center" })
+vim.keymap.set("n", "<leader>cf", "<cmd>:let @+ = expand('%')<CR>", { desc = "Copy current file path" })
+vim.keymap.set("n", "<leader>FR", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {desc = "file wide replace word under cursor with word"})
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR><cmd>e<CR>", { silent = true })
 
 local function git_compare_selection_with_main()
@@ -135,6 +119,13 @@ vim.keymap.set("v", "<leader>1", git_compare_selection_with_main)
 vim.keymap.set("n", "<leader>s", function()
     vim.cmd("w")
 end)
+vim.keymap.set("n", "<C-Up>", "<cmd>resize +10<cr>", {desc="easy resize split up"})
+vim.keymap.set("n", "<C-Down>", "<cmd>resize -10<cr>", {desc="easy resize split up"})
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -10<cr>", {desc="easy resize split left"})
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +10<cr>", {desc="easy resize split up"})
+vim.api.nvim_set_keymap('n', '<leader>gt', [[:vsplit<CR><C-w>L:vertical resize -60<CR>:terminal<CR>]], { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('t', '<Esc><Esc>', [[<C-\><C-n>]], { noremap = true, silent = true, desc = "Exit terminal mode" })
 
 
 local augroup = vim.api.nvim_create_augroup

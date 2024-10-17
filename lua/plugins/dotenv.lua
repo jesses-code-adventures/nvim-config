@@ -20,15 +20,17 @@
 -- }
 
 
-local dev_path = vim.fn.expand("~/coding/personal/dotenv.nvim")
-
-return {
-    {
-        "jesses-code-adventures/dotenv.nvim",
-        dir=dev_path,
-        dev=true,
-        config = function()
-            require("dotenv").setup()
-        end,
-    }
-}
+-- local dev_path = vim.fn.expand("~/coding/personal/dotenv.nvim")
+--
+-- return {
+--     {
+--         "jesses-code-adventures/dotenv.nvim",
+--         dir=dev_path,
+--         dev=true,
+--         config = function()
+--             require("dotenv").setup()
+--         end,
+--     }
+-- }
+--
+return {}

@@ -296,7 +296,7 @@ return ({
                 capabilities = capabilities,
                 settings = {
                     pyright = {
-                        disableOrganiseImports = true
+                        disableOrganiseImports = false
                     },
                     python = {
                         analysis = {
