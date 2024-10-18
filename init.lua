@@ -65,72 +65,16 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Previous location
 vim.keymap.set("n", "<leader>cf", "<cmd>:let @+ = expand('%')<CR>", { desc = "Copy current file path" })
 vim.keymap.set("n", "<leader>FR", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {desc = "file wide replace word under cursor with word"})
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR><cmd>e<CR>", { silent = true })
-
-local function git_compare_selection_with_main()
-  -- get visual selection
-  local _, line1, col1, _ = unpack(vim.fn.getpos("'<"))
-  local _, line2, col2, _ = unpack(vim.fn.getpos("'>"))
-  local current_branch = vim.fn.system("git branch --show-current"):gsub("%s+", "")
-  
-  -- get the current branch's selected text
-  local current_selection = vim.fn.getline(line1, line2)
-  current_selection[1] = string.sub(current_selection[1], col1)
-  current_selection[#current_selection] = string.sub(current_selection[#current_selection], 1, col2)
-
-  -- get the selection from the 'main' branch
-  local main_selection = vim.fn.systemlist(
-    string.format("git show main:%s | sed -n '%d,%dp'", vim.fn.expand("%:p"), line1, line2)
-  )
-  
-  -- show diff line by line
-  for i = 1, #current_selection do
-    local current_line = current_selection[i] or ""
-    local main_line = main_selection[i] or ""
-    if current_line ~= main_line then
-      print(string.format("diff at line %d:\n  current: %s\n  main: %s", line1 + i - 1, current_line, main_line))
-    end
-  end
-end
-
-local function wrap_markdown_text()
-  local filetype = vim.bo.filetype
-  if filetype == "markdown" then
-    -- get the current window width and set textwidth accordingly
-    local win_width = vim.api.nvim_win_get_width(0)
-    local margin = 4  -- adjust margin as needed
-    vim.bo.textwidth = win_width - margin
-
-    -- enable wrapping and other options
-    vim.wo.wrap = true
-    vim.wo.breakindent = true
-    vim.wo.linebreak = true
-    vim.bo.formatoptions = vim.bo.formatoptions .. "t"
-  end
-end
-
--- autocommand to trigger on opening markdown files and resizing the window
-vim.api.nvim_create_autocmd({"FileType", "VimResized"}, {
-  pattern = "markdown",
-  callback = wrap_markdown_text,
-})
-
-vim.keymap.set("v", "<leader>1", git_compare_selection_with_main)
-
-vim.keymap.set("n", "<leader>s", function()
-    vim.cmd("w")
-end)
 vim.keymap.set("n", "<C-Up>", "<cmd>resize +10<cr>", {desc="easy resize split up"})
 vim.keymap.set("n", "<C-Down>", "<cmd>resize -10<cr>", {desc="easy resize split up"})
 vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -10<cr>", {desc="easy resize split left"})
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +10<cr>", {desc="easy resize split up"})
 vim.api.nvim_set_keymap('n', '<leader>gt', [[:vsplit<CR><C-w>L:vertical resize -60<CR>:terminal<CR>]], { noremap = true, silent = true })
-
 vim.api.nvim_set_keymap('t', '<Esc><Esc>', [[<C-\><C-n>]], { noremap = true, silent = true, desc = "Exit terminal mode" })
 
-
+-- autocmds, custom functions that aren't plugins
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
-
 local yank_group = augroup('HighlightYank', {})
 autocmd('TextYankPost', {
     group = yank_group,
@@ -142,7 +86,42 @@ autocmd('TextYankPost', {
         })
     end,
 })
-
+-- TODO: get this working
+local function git_compare_selection_with_main()
+  local _, line1, col1, _ = unpack(vim.fn.getpos("'<"))
+  local _, line2, col2, _ = unpack(vim.fn.getpos("'>"))
+  local current_branch = vim.fn.system("git branch --show-current"):gsub("%s+", "")
+  local current_selection = vim.fn.getline(line1, line2)
+  current_selection[1] = string.sub(current_selection[1], col1)
+  current_selection[#current_selection] = string.sub(current_selection[#current_selection], 1, col2)
+  local main_selection = vim.fn.systemlist(
+    string.format("git show main:%s | sed -n '%d,%dp'", vim.fn.expand("%:p"), line1, line2)
+  )
+  for i = 1, #current_selection do
+    local current_line = current_selection[i] or ""
+    local main_line = main_selection[i] or ""
+    if current_line ~= main_line then
+      print(string.format("diff at line %d:\n  current: %s\n  main: %s", line1 + i - 1, current_line, main_line))
+    end
+  end
+end
+vim.keymap.set("v", "<leader>1", git_compare_selection_with_main)
+local function wrap_markdown_text()
+  local filetype = vim.bo.filetype
+  if filetype == "markdown" then
+    local win_width = vim.api.nvim_win_get_width(0)
+    local margin = 4  -- adjust margin as needed
+    vim.bo.textwidth = win_width - margin
+    vim.wo.wrap = true
+    vim.wo.breakindent = true
+    vim.wo.linebreak = true
+    vim.bo.formatoptions = vim.bo.formatoptions .. "t"
+  end
+end
+vim.api.nvim_create_autocmd({"FileType", "VimResized"}, {
+  pattern = "markdown",
+  callback = wrap_markdown_text,
+})
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
