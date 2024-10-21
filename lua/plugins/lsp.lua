@@ -120,7 +120,8 @@ return ({
             })
 
             vim.diagnostic.config({
-                virtual_text = { source = "always", severity_sort = "true" }
+                virtual_text = { source = "always", severity_sort = "true" },
+                update_in_insert = true,
             })
 
             vim.filetype.add({

@@ -122,6 +122,10 @@ vim.api.nvim_create_autocmd({"FileType", "VimResized"}, {
   pattern = "markdown",
   callback = wrap_markdown_text,
 })
+-- treat any file with .env in the name as a .env file for syntax highlighting
+vim.cmd([[
+  au BufNewFile,BufRead *.env.* set filetype=sh
+]])
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
