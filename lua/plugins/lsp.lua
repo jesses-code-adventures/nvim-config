@@ -49,6 +49,7 @@ return ({
         cmd = { "LspInfo", "LspInstall", "LspUninstall" },
         config = function()
             require("neoconf").setup()
+            local lsp = require('lspconfig')
             local cmp = require("cmp")
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
             cmp.setup({
@@ -67,12 +68,11 @@ return ({
                     ['<C-e>'] = cmp.mapping.abort(),
                     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                 }),
-                sources = cmp.config.sources({
+                sources = {
                     { name = 'nvim_lsp' },
                     { name = 'luasnip' },
-                }, {
-                    { name = 'buffer' },
-                })
+                    { name = 'buffer' }
+                }
             })
 
             -- Set configuration for specific filetype.
@@ -118,8 +118,6 @@ return ({
                     { name = 'cmdline' }
                 })
             })
-
-            local lsp = require('lspconfig')
 
             vim.diagnostic.config({
                 virtual_text = { source = "always", severity_sort = "true" }
