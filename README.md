@@ -1,6 +1,6 @@
 # My Neovim Config
 
-This started as a fork of ThePrimeagen's config and has become a beast of its own
+This started as a fork of ThePrimeagen's config and has become a beast of its own.
 
 ## Prerequisites
 
