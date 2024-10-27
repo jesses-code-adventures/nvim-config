@@ -10,9 +10,19 @@ return ({
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
     },
     keys = {
-        { "<leader>pf", "<cmd>Telescope find_files<cr>",                                                               desc = "fuzzy find on file names" },
+        { "<leader>pf", function()
+            require('telescope.builtin').find_files({
+                hidden = true,
+            })
+        end, desc = "fuzzy find on file names" },
         { "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>" },
-        { '<leader>lg', "<cmd>Telescope live_grep<cr>",                                                                desc = "live grep" },
+        { '<leader>lg', function()
+            require('telescope.builtin').live_grep({
+                additional_args = function(args)
+                    return vim.list_extend(args, { '--hidden' })
+                end
+            })
+        end, desc = "live grep" },
         { '<leader>ps', function() require("telescope.builtin").grep_string({ search = vim.fn.input("Grep > ") }) end, desc = "project grep search" },
         { "<leader>pb", "<cmd>Telescope buffers<cr>",                                                                  desc = "fuzzy find on open buffers" },
         { '<leader>vh', "<cmd>Telescope help_tags<cr>",                                                                desc = "get help tags" },
@@ -33,10 +43,10 @@ return ({
             },
             extensions = {
                 fzf = {
-                    fuzzy = true,     -- false will only do exact matching
+                    fuzzy = true,                   -- false will only do exact matching
                     override_generic_sorter = true, -- override the generic sorter
-                    override_file_sorter = true, -- override the file sorter
-                    case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+                    override_file_sorter = true,    -- override the file sorter
+                    case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
                 },
             },
         })
