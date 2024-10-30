@@ -93,10 +93,10 @@ return ({
                         require('lspconfig').ruff.setup({
                             init_options = {
                                 settings = {
-                                    configurationPreference="filesystemFirst",
+                                    configurationPreference = "filesystemFirst",
                                     lint = {
-                                        enable=true,
-                                        preview=true,
+                                        enable = true,
+                                        preview = true,
                                     }
                                 }
                             },
@@ -118,6 +118,25 @@ return ({
                             on_attach = global_on_attach,
                         }
                     end,
+                    ["clangd"] = function()
+                        local lspconfig = require("lspconfig")
+                        lspconfig.clangd.setup({
+                            on_attach = global_on_attach,
+                            cmd = { "clangd" },
+                            filetypes = { "c", "cpp", "objc", "objcpp" },
+                            root_dir = require 'lspconfig'.util.root_pattern(".clangd", ".git", "compile_commands.json",
+                                "compile_flags.txt"),
+                            single_file_support = true,
+                            settings = {
+                                clangd = {
+                                    compileFlags = {
+                                        add = { "-F/Library/Frameworks", "-framework SDL2" }
+                                    }
+                                }
+                            },
+                            capabilities = capabilities
+                        })
+                    end
                 }
             })
             local cmp_select = { behavior = cmp.SelectBehavior.Select }
