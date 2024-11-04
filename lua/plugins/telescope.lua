@@ -25,6 +25,8 @@ return ({
         end, desc = "live grep" },
         { '<leader>ps', function() require("telescope.builtin").grep_string({ search = vim.fn.input("Grep > ") }) end, desc = "project grep search" },
         { "<leader>pb", "<cmd>Telescope buffers<cr>",                                                                  desc = "fuzzy find on open buffers" },
+        { '<leader>fw', function() require("telescope.builtin").grep_string() end },
+
         { '<leader>vh', "<cmd>Telescope help_tags<cr>",                                                                desc = "get help tags" },
         { '<C-p>',      "<cmd>Telescope git_files<cr>",                                                                desc = "git files fuzzy find" },
         { '<leader>km', "<cmd>Telescope keymaps<cr>",                                                                  desc = "keymaps" },
@@ -39,7 +41,7 @@ return ({
                     i = { ["<c-t"] = trouble.open_with_trouble },
                     n = { ["<c-t"] = trouble.open_with_trouble },
                 },
-                file_ignore_patterns = { ".templ.go" }
+                file_ignore_patterns = { ".templ.go", ".git/*", "*mock.go" }
             },
             extensions = {
                 fzf = {
