@@ -1,9 +1,5 @@
-local dev = true
+local dev = false
 local path = vim.fn.expand("~/coding/personal/uuid.nvim")
-
-if not vim.loop.fs_stat(path) then
-    return {}
-end
 
 return {
     {
@@ -13,8 +9,7 @@ return {
         dev = dev,
         enabled = true,
         keys = {
-            { "<leader>6", function() require('uuid').newV4() end, mode = "n", desc = "New UUID in paste buffer" },
+            { "<leader>mid", function() require('uuid').newV4() end, mode = "n", desc = "New UUID in paste buffer" },
         },
-        lazy = false
     }
 }
