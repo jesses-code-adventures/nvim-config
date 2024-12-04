@@ -103,6 +103,19 @@ return ({
                             on_attach = global_on_attach,
                         })
                     end,
+                    ["volar"] = function()
+                      require("lspconfig").volar.setup({
+                        filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact" },
+                        init_options = {
+                          vue = {
+                            hybridMode = false,
+                          },
+                          typescript = {
+                            tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+                          },
+                        },
+                      })
+                    end,
                     ["lua_ls"] = function()
                         local lspconfig = require("lspconfig")
                         lspconfig.lua_ls.setup {
