@@ -2,7 +2,7 @@ return {
   'kristijanhusak/vim-dadbod-ui',
   dependencies = {
     { 'tpope/vim-dadbod', lazy = false },
-    { 'tpope/vim-dotenv', lazy = true },
+    -- { 'tpope/vim-dotenv', lazy = false },
     { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' } }, -- Optional
   },
   cmd = {
@@ -12,7 +12,7 @@ return {
     'DBUIFindBuffer',
   },
   keys = {
-    -- {"n", "<leader>", function () vim.cmd("DBUI") end, "launch vim dadbod ui"},
+    {"<leader>pd", function () vim.cmd("DBUI") end, "launch vim dadbod ui"},
   },
   init = function()
     -- Your DBUI configuration
