@@ -5,7 +5,7 @@ return ({
     "craftzdog/solarized-osaka.nvim",
     name = "solarized-osaka",
     lazy = false,
-    enabled = true,
+    enabled = false,
     priority = 1000,
     opts = {
       styles = {
@@ -38,6 +38,16 @@ return ({
       })
       vim.cmd.colorscheme("everforest")
     end,
+  },
+  {
+    'kepano/flexoki-neovim',
+    name = 'flexoki',
+    lazy = false,
+    enabled = true,
+    priority = 1000,
+    config = function()
+      vim.cmd('colorscheme flexoki-dark')
+    end
   },
   {
     "undefined",
