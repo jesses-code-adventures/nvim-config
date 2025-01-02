@@ -34,13 +34,13 @@ return ({
         end,
         build = ":TSUpdate"
     },
-    {
-        "nvim-treesitter/nvim-treesitter-context",
-        event = { "BufReadPost", "BufNewFile" },
-        keys = {
-            { "<leader>tsc", "<cmd>TSContextToggle<cr>", desc = "toggle treesitter context" },
-        },
-    },
+    -- {
+    --     "nvim-treesitter/nvim-treesitter-context",
+    --     event = { "BufReadPost", "BufNewFile" },
+    --     keys = {
+    --         { "<leader>tsc", "<cmd>TSContextToggle<cr>", desc = "toggle treesitter context" },
+    --     },
+    -- },
     {
         "vrischmann/tree-sitter-templ",
         name = "treesitter-templ",
