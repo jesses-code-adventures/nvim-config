@@ -69,6 +69,7 @@ vim.keymap.set("n", "<C-Up>", "<cmd>resize +10<cr>", {desc="easy resize split up
 vim.keymap.set("n", "<C-Down>", "<cmd>resize -10<cr>", {desc="easy resize split up"})
 vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -10<cr>", {desc="easy resize split left"})
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +10<cr>", {desc="easy resize split up"})
+vim.keymap.set("n", "<C-S>", "<cmd>source %<cr>", {desc="source current file"})
 vim.api.nvim_set_keymap('n', '<leader>gt', [[:vsplit<CR><C-w>L:vertical resize -60<CR>:terminal<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('t', '<Esc><Esc>', [[<C-\><C-n>]], { noremap = true, silent = true, desc = "Exit terminal mode" })
 
@@ -86,6 +87,7 @@ autocmd('TextYankPost', {
         })
     end,
 })
+
 -- TODO: get this working
 local function git_compare_selection_with_main()
   local _, line1, col1, _ = unpack(vim.fn.getpos("'<"))
