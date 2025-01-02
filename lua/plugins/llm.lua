@@ -33,7 +33,7 @@ return {
                     api_key_name = 'OPENAI_API_KEY',
                     system_prompt = system_prompt,
                     replace = true,
-                }, dingllm.make_openai_spec_curl_args, dingllm.handle_openai_spec_data)
+                }, custom_make_openai_spec_curl_args, dingllm.handle_openai_spec_data)
             end
 
             local function openai_help()
@@ -43,11 +43,33 @@ return {
                     api_key_name = 'OPENAI_API_KEY',
                     system_prompt = helpful_prompt,
                     replace = false,
-                }, dingllm.make_openai_spec_curl_args, dingllm.handle_openai_spec_data)
+                }, custom_make_openai_spec_curl_args, dingllm.handle_openai_spec_data)
             end
 
-            vim.keymap.set({ 'n', 'v' }, '<leader>lr', openai_replace, { desc = 'llm openai' })
-            vim.keymap.set({ 'n', 'v' }, '<leader>lh', openai_help, { desc = 'llm openai_help' })
+            local function anthropic_help()
+                dingllm.invoke_llm_and_stream_into_editor({
+                    url = 'https://api.anthropic.com/v1/messages',
+                    model = 'claude-3-5-sonnet-20241022',
+                    api_key_name = 'ANTHROPIC_API_KEY',
+                    system_prompt = helpful_prompt,
+                    replace = false,
+                }, dingllm.make_anthropic_spec_curl_args, dingllm.handle_anthropic_spec_data)
+            end
+
+            local function anthropic_replace()
+                dingllm.invoke_llm_and_stream_into_editor({
+                    url = 'https://api.anthropic.com/v1/messages',
+                    model = 'claude-3-5-sonnet-20241022',
+                    api_key_name = 'ANTHROPIC_API_KEY',
+                    system_prompt = system_prompt,
+                    replace = true,
+                }, dingllm.make_anthropic_spec_curl_args, dingllm.handle_anthropic_spec_data)
+            end
+
+
+            -- when anthropic credits run out, just move back to openai credits or add more anthropic credits
+            vim.keymap.set({ 'n', 'v' }, '<leader>lr', anthropic_replace, { desc = 'llm replace codeblock' })
+            vim.keymap.set({ 'n', 'v' }, '<leader>lh', anthropic_help, { desc = 'llm helpful response' })
         end,
     }
 }
