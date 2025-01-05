@@ -31,7 +31,7 @@ return {
             local autocmd = vim.api.nvim_create_autocmd
             autocmd('BufWritePre', {
                 group = neoformat_augroup,
-                pattern = '*.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.html,*.json,*.yaml,*.md,*.rs,*.lua,*.templ,*.go',
+                pattern = '*.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.html,*.yaml,*.md,*.rs,*.lua,*.templ,*.go',
                 command = 'Neoformat',
             })
         end

@@ -89,6 +89,23 @@ return ({
                         vim.g.zig_fmt_parse_errors = 0
                         vim.g.zig_fmt_autosave = 0
                     end,
+                    sqls = function()
+                        require('lspconfig').sqls.setup({
+                            -- cmd = {"sqls", "-config", "sqls.yml"};
+                            -- ft = { 'mysql', 'sql' },
+                            settings = {
+                                sqls = {
+                                    connections = {
+                                        {
+                                            driver = 'mysql',
+                                            dataSourceName =
+                                            'mysql://local:asecurepassword42069!@tcp(localhost:3420)/gt_bi_db_test',
+                                        },
+                                    }
+                                }
+                            }
+                        })
+                    end,
                     ruff = function()
                         require('lspconfig').ruff.setup({
                             init_options = {
@@ -97,24 +114,38 @@ return ({
                                     lint = {
                                         enable = true,
                                         preview = true,
+                                    },
+                                    codeAction = {
+                                        enable = true,
+                                        enable_snippets = true,
+                                        enable_inlay_hints = true,
                                     }
                                 }
                             },
                             on_attach = global_on_attach,
                         })
                     end,
+                    basedpyright = function()
+                        require('lspconfig').basedpyright.setup({
+                            init_options = {
+                                settings = {
+                                }
+                            },
+                            on_attach = global_on_attach,
+                        })
+                    end,
                     ["volar"] = function()
-                      require("lspconfig").volar.setup({
-                        filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact" },
-                        init_options = {
-                          vue = {
-                            hybridMode = false,
-                          },
-                          typescript = {
-                            tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
-                          },
-                        },
-                      })
+                        require("lspconfig").volar.setup({
+                            filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact" },
+                            init_options = {
+                                vue = {
+                                    hybridMode = false,
+                                },
+                                typescript = {
+                                    tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+                                },
+                            },
+                        })
                     end,
                     ["lua_ls"] = function()
                         local lspconfig = require("lspconfig")
