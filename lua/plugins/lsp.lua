@@ -6,6 +6,7 @@ return ({
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
             'folke/neoconf.nvim',
+            'saghen/blink.cmp',
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-nvim-lua',
             { 'j-hui/fidget.nvim', opts = {},    lazy = true },
