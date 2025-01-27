@@ -70,6 +70,43 @@ vim.keymap.set("n", "<C-Down>", "<cmd>resize -10<cr>", {desc="easy resize split 
 vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -10<cr>", {desc="easy resize split left"})
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +10<cr>", {desc="easy resize split up"})
 vim.keymap.set("n", "<C-S>", "<cmd>source %<cr>", {desc="source current file"})
+vim.keymap.set("n", "<leader>vs", "<cmd>vsplit<CR><C-w>l<cmd>vertical resize 60<cr><cmd>e chat.md<cr><cmd>set wrap<cr><cmd>split<cr><cmd>resize 5<CR><cmd>e .llmfiles<cr>", {desc="vertical split and edit"})
+vim.keymap.set('n', '<leader>cc', function()
+    local line = vim.fn.line('.')
+    local pattern = '```[^`]*```'
+    local start_line = line
+    local found = false
+
+    while start_line > 0 do
+        local line_content = vim.fn.getline(start_line)
+        if line_content:match('```') then
+            found = true
+            break
+        end
+        start_line = start_line - 1
+    end
+
+    if found then
+        local end_line = start_line
+        while end_line <= vim.fn.line('$') do
+            local line_content = vim.fn.getline(end_line)
+            if line_content:match('```') and end_line ~= start_line then
+                break
+            end
+            end_line = end_line + 1
+        end
+
+        vim.fn.setpos("'<", {0, start_line, 1, 0})
+        vim.fn.setpos("'>", {0, end_line, 1, 0})
+        vim.cmd('normal! gv"*y')
+    else
+        print('No codeblock found above the cursor')
+    end
+end, { desc = 'Yank closest codeblock above cursor' })
+
+-- vim.keymap.set("n", "<leader>vs", "<cmd>vsplit<CR><C-w>l<cmd>vertical resize 60<cr><cmd>enew<cr><cmd>set wrap<cr><cmd>split<cr><cmd>resize 20<CR>", {desc="vertical split and edit"})
+
+-- vim.keymap.set("n", "<leader>vs", "<cmd>vsplit
 vim.api.nvim_set_keymap('n', '<leader>gt', [[:vsplit<CR><C-w>L:vertical resize -60<CR>:terminal<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('t', '<Esc><Esc>', [[<C-\><C-n>]], { noremap = true, silent = true, desc = "Exit terminal mode" })
 

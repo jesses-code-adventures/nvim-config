@@ -1,4 +1,4 @@
-local testing = false
+local testing = true
 
 local local_dev_path = "~/.config/local-plugs/dingllm"
 
@@ -66,8 +66,47 @@ return {
                 }, dingllm.make_anthropic_spec_curl_args, dingllm.handle_anthropic_spec_data)
             end
 
+            local function deepseek_help()
+                dingllm.invoke_llm_and_stream_into_editor({
+                    url = 'https://api.deepseek.com/v1/chat/completions',
+                    model = 'deepseek-chat',
+                    api_key_name = 'DEEPSEEK_API_KEY',
+                    system_prompt = helpful_prompt,
+                    replace = false,
+                }, dingllm.make_deepseek_spec_curl_args, dingllm.handle_openai_spec_data)
+            end
 
-            -- when anthropic credits run out, just move back to openai credits or add more anthropic credits
+            local function deepseek_replace()
+                dingllm.invoke_llm_and_stream_into_editor({
+                    url = 'https://api.deepseek.com/v1/chat/completions',
+                    model = 'deepseek-chat',
+                    api_key_name = 'DEEPSEEK_API_KEY',
+                    system_prompt = system_prompt,
+                    replace = true,
+                }, dingllm.make_deepseek_spec_curl_args, dingllm.handle_openai_spec_data)
+            end
+
+            local function deepseek_reason_help()
+                dingllm.invoke_llm_and_stream_into_editor({
+                    url = 'https://api.deepseek.com/v1/chat/completions',
+                    model = 'deepseek-reasoner',
+                    api_key_name = 'DEEPSEEK_API_KEY',
+                    system_prompt = helpful_prompt,
+                    replace = false,
+                }, dingllm.make_deepseek_spec_curl_args, dingllm.handle_openai_reasoning_data, true)
+            end
+
+            local function deepseek_reason_replace()
+                dingllm.invoke_llm_and_stream_into_editor({
+                    url = 'https://api.deepseek.com/v1/chat/completions',
+                    model = 'deepseek-reasoner',
+                    api_key_name = 'DEEPSEEK_API_KEY',
+                    system_prompt = system_prompt,
+                    replace = true,
+                }, dingllm.make_deepseek_spec_curl_args, dingllm.handle_openai_reasoning_data, true)
+            end
+
+
             vim.keymap.set({ 'n', 'v' }, '<leader>lr', anthropic_replace, { desc = 'llm replace codeblock' })
             vim.keymap.set({ 'n', 'v' }, '<leader>lh', anthropic_help, { desc = 'llm helpful response' })
         end,
