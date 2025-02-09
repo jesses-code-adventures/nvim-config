@@ -70,7 +70,6 @@ vim.keymap.set("n", "<C-Down>", "<cmd>resize -10<cr>", {desc="easy resize split 
 vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -10<cr>", {desc="easy resize split left"})
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +10<cr>", {desc="easy resize split up"})
 vim.keymap.set("n", "<C-S>", "<cmd>source %<cr>", {desc="source current file"})
-vim.keymap.set("n", "<leader>vs", "<cmd>vsplit<CR><C-w>l<cmd>vertical resize 60<cr><cmd>e chat.md<cr><cmd>set wrap<cr><cmd>split<cr><cmd>resize 5<CR><cmd>e .llmfiles<cr>", {desc="vertical split and edit"})
 vim.keymap.set('n', '<leader>cc', function()
     local line = vim.fn.line('.')
     local pattern = '```[^`]*```'
@@ -104,9 +103,6 @@ vim.keymap.set('n', '<leader>cc', function()
     end
 end, { desc = 'Yank closest codeblock above cursor' })
 
--- vim.keymap.set("n", "<leader>vs", "<cmd>vsplit<CR><C-w>l<cmd>vertical resize 60<cr><cmd>enew<cr><cmd>set wrap<cr><cmd>split<cr><cmd>resize 20<CR>", {desc="vertical split and edit"})
-
--- vim.keymap.set("n", "<leader>vs", "<cmd>vsplit
 vim.api.nvim_set_keymap('n', '<leader>gt', [[:vsplit<CR><C-w>L:vertical resize -60<CR>:terminal<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('t', '<Esc><Esc>', [[<C-\><C-n>]], { noremap = true, silent = true, desc = "Exit terminal mode" })
 
