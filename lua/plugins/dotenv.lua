@@ -1,5 +1,5 @@
 local dev = false
-local path = vim.fn.expand("~/.config/local-plugs/dotenv.nvim") -- for local dev, pass this to dir
+local path = vim.fn.expand("~/coding/personal/dotenv.nvim") -- for local dev, pass this to dir
 
 return {
     "jesses-code-adventures/dotenv.nvim",

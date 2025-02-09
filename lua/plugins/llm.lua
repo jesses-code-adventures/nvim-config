@@ -1,6 +1,6 @@
 local testing = false
 
-local local_dev_path = "~/.config/local-plugs/dingllm"
+local local_dev_path = "~/coding/personal/llm.nvim"
 
 local_dev_path = vim.fn.expand(local_dev_path)
 

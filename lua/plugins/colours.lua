@@ -1,4 +1,4 @@
-local ud_path = vim.fn.expand("~/.config/local-plugs/undefined.nvim")
+local ud_path = vim.fn.expand("~/coding/personal/undefined.nvim")
 
 return ({
   {
