@@ -13,7 +13,7 @@ end
 
 return {
     {
-        (testing and "llm") or "jesses-code-adventures/llm.nvim",
+        (testing and "llm.nvim") or "jesses-code-adventures/llm.nvim",
         dir = testing and local_dev_path or nil,
         dev = testing,
         dependencies = { 'nvim-lua/plenary.nvim' },
@@ -32,6 +32,7 @@ return {
             { '<leader>lh', function() require('llm').help() end, mode = "n", { desc = 'llm helpful response' } },
             { '<leader>lh', function() require('llm').help() end, mode = "v", { desc = 'llm helpful response' } },
             { '<leader>lm', function() require('llm').models() end, { desc = 'llm model selector' } },
+            { '<leader>ls', function() require('llm').settings() end, { desc = 'llm display settings' } },
             { '<leader>lc', function() require('llm').chat() end, { desc = 'llm chat window' } },
         },
     }
