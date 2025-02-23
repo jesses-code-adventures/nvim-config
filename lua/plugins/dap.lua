@@ -24,7 +24,6 @@ return {
                 ui.close()
             end)
 
-            -- Eval var under cursor
             vim.keymap.set("n", "<space>?", function()
                 require("dapui").eval(nil, { enter = true })
             end)
@@ -50,4 +49,20 @@ return {
             end
         end,
     },
+    -- keys = {
+    --     { "<leader>b",  function() require('dap').toggle_breakpoint() end,              desc = "dap: toggle breakpoint" },
+    --     { "<leader>gb", function() require('dap').run_to_cursor() end,                  desc = "dap: run to cursor" },
+    --     { "<leader>do", function() require('dap').attach() end,                         desc = "dap: attach" },
+    --     { "<leader>dc", function()
+    --         require('dap').close()
+    --         require('dapui').close()
+    --     end,                                                                            desc = "dap: close" },
+    --     { "<leader>?",  function() require('dapui').eval(nil, { enter = true }) end,    desc = "dap: eval" },
+    --     { "<F1>",       function() require('dap').continue() end,                       desc = "dap: continue" },
+    --     { "<F2>",       function() require('dap').step_into() end,                      desc = "dap: step into" },
+    --     { "<F3>",       function() require('dap').step_over() end,                      desc = "dap: step over" },
+    --     { "<F4>",       function() require('dap').step_out() end,                       desc = "dap: step out" },
+    --     { "<F5>",       function() require('dap').step_back() end,                      desc = "dap: step back" },
+    --     { "<F12>",      function() require('dap').restart() end,                        desc = "dap: restart" },
+    -- },
 }

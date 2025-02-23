@@ -22,8 +22,8 @@ return {
                     hide_during_completion = true,
                     debounce = 25,
                     keymap = {
-                        accept = "<Tab>",
-                        dismiss = "<Shift-Tab>",
+                        accept = "<C-y>",
+                        dismiss = "<C-n>",
                         accept_word = false,
                         accept_line = false,
                         next = false,
