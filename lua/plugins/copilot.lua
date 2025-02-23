@@ -3,23 +3,38 @@ local check_node_installed = function()
     local is_node_installed = os.execute("command -v node >/dev/null 2>&1")
     return is_node_installed == 0
 end
+
 return {
     {
         "zbirenbaum/copilot.lua",
         name = "copilot",
         cmd = "Copilot",
         event = "InsertEnter",
-        keys = {
-            {"<C-Space>", mode={"i"}, function() require('copilot.suggestion').accept_line() end, desc="copilot accept suggestion"},
-            {"<C-d>", mode={"i"}, function() require('copilot.suggestion').dismiss() end, desc="copilot dismiss suggestion"},
-        },
         config = function()
             -- requires node - exit if we don't have it
             if not check_node_installed() then
                 return
             end
             Copilot = require("copilot").setup({
-                suggestion={enabled=false, auto_trigger=true}
+                suggestion = {
+                    enabled = true,
+                    auto_trigger = true,
+                    hide_during_completion = true,
+                    debounce = 25,
+                    keymap = {
+                        accept = "<Tab>",
+                        dismiss = "<Shift-Tab>",
+                        accept_word = false,
+                        accept_line = false,
+                        next = false,
+                        prev = false,
+                    },
+                    filetypes = {
+                        ["*"] = true,
+                        help = false,
+                        gitrebase = false,
+                    },
+                },
             })
         end,
 
