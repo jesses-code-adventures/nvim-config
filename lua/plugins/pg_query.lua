@@ -1,7 +1,7 @@
-local dev = true
+local dev = false
 local path = vim.fn.expand("~/coding/pg_query.nvim")
 
-if not vim.loop.fs_stat(path) then
+if dev and not vim.loop.fs_stat(path) then
     print("pg_query not found")
     return {}
 end
