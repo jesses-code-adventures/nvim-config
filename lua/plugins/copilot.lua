@@ -22,7 +22,8 @@ return {
                     hide_during_completion = true,
                     debounce = 25,
                     keymap = {
-                        accept = "<C-y>",
+                        -- TODO: update this to be a nicer keymap
+                        accept = "<Tab>",
                         dismiss = "<C-n>",
                         accept_word = false,
                         accept_line = false,
