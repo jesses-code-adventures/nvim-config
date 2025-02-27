@@ -70,6 +70,7 @@ vim.keymap.set("n", "<C-Down>", "<cmd>resize -10<cr>", {desc="easy resize split 
 vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -10<cr>", {desc="easy resize split left"})
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +10<cr>", {desc="easy resize split up"})
 vim.keymap.set("n", "<C-S>", "<cmd>source %<cr>", {desc="source current file"})
+vim.keymap.set("n", "<CR>", "", {desc="disable enter"})
 vim.keymap.set('n', '<leader>cc', function()
     local line = vim.fn.line('.')
     local pattern = '```[^`]*```'
