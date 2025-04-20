@@ -10,6 +10,5 @@ return {
     {
         'JoosepAlviste/nvim-ts-context-commentstring',
         ft = { "templ", "tsx", "jsx", "markdown", "svelte", "typescript", "javascript" },
-        event = { "BufReadPost", "BufNewFile" },
     },
 }

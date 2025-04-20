@@ -17,7 +17,6 @@ return {
             vim.g.neoformat_enabled_typescriptreact = { 'prettier' }
             vim.g.neoformat_enabled_json = { 'prettier' }
             vim.g.neoformat_enabled_yaml = { 'prettier' }
-            -- vim.g.neoformat_enabled_markdown = { 'prettier' }
             vim.g.neoformat_enabled_html = { 'prettier' }
             vim.g.neoformat_enabled_css = { 'prettier' }
             vim.g.neoformat_enabled_scss = { 'prettier' }

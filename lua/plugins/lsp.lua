@@ -42,7 +42,7 @@ return ({
             )
             local global_on_attach = function(_, bufnr)
                 local opts = { buffer = bufnr, remap = false }
-                vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+                vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
                 vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
                 vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
                 vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
@@ -137,7 +137,7 @@ return ({
                     end,
                     ["volar"] = function()
                         require("lspconfig").volar.setup({
-                            filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact" },
+                            ft = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact" },
                             init_options = {
                                 vue = {
                                     hybridMode = false,
@@ -168,7 +168,7 @@ return ({
                         lspconfig.clangd.setup({
                             on_attach = global_on_attach,
                             cmd = { "clangd" },
-                            filetypes = { "c", "cpp", "objc", "objcpp" },
+                            ft = { "c", "cpp", "objc", "objcpp" },
                             root_dir = require 'lspconfig'.util.root_pattern(".clangd", ".git", "compile_commands.json",
                                 "compile_flags.txt"),
                             single_file_support = true,

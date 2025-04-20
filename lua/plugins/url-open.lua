@@ -1,5 +1,8 @@
 return {
     'sontungexpt/url-open',
+    keys = {
+        { "<leader>o", function() vim.cmd("URLOpenUnderCursor") end, mode = "n", desc = "Open URL under cursor" },
+    },
     config = function()
         -- default values
         require("url-open").setup({
@@ -77,7 +80,5 @@ return {
                 -- so the url will be https://www.npmjs.com/package/[pattern_found]/issues
             },
         })
-
-        vim.keymap.set("n", "<leader>o", "<esc>:URLOpenUnderCursor<cr>")
     end
 }

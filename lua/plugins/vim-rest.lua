@@ -1,8 +1,8 @@
 return {
   {
     "diepm/vim-rest-console",
-    filetypes = "rest",
-    enabled=true,
+    enabled = true,
+    ft = "rest",
     config = function()
       vim.g.vrc_set_default_mapping = 0
       vim.g.vrc_response_default_content_type = "application/json"

@@ -6,6 +6,7 @@ return {
     dir = dev and path or nil,
     dev = dev,
     enabled = true,
+    event = { "BufReadPre", "BufNewFile" },
     opts = {
         overrides = { ".env", ".local.env", ".env.local", ".local.mine.env", ".env.mine" },
     },

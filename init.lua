@@ -1,51 +1,49 @@
-------------- set global options
 local home = os.getenv("HOME")
 if home == nil then
     home = vim.fn.stdpath("data")
 end
 
+-- GLOBAL OPTIONS
+vim.opt.mouse = "a"
 vim.opt.guicursor = ""
-
 vim.opt.nu = true
 vim.opt.relativenumber = true
-
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-
 vim.opt.smartindent = true
-
 vim.opt.wrap = false
-
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = home .. "/.vim/undodir"
 vim.opt.undofile = true
-
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
-
 vim.opt.termguicolors = true
-
 vim.opt.scrolloff = 999
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
-
 vim.opt.updatetime = 10
-
 vim.opt.colorcolumn = "0"
-
-vim.opt.laststatus = 3
-
+vim.opt.laststatus = 2
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 
-
-------------- set global keymaps
+-- GLOBAL KEYMAPS
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open Ex mode" })
+
+local function nav()
+    local has_oil, _ = pcall(require, 'oil')
+    if has_oil then
+        vim.cmd.Oil()
+    else
+        vim.cmd.Ex()
+    end
+end
+
+vim.keymap.set("n", "-", nav, { desc = "Navigate directory" })
+vim.keymap.set("n", "<leader>pv", nav, { desc = "Open Ex mode" })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join line below" })
@@ -60,54 +58,25 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without over
 vim.keymap.set("i", "<C-e>", "<Esc>", { desc = "Exit insert mode" })
 vim.keymap.set("n", "Q", "<nop>", { desc = "Disable Q" })
 vim.keymap.set("n", "<leader>F", vim.lsp.buf.format, { desc = "Format code" })
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Next location and center" })
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Previous location and center" })
 vim.keymap.set("n", "<leader>cf", "<cmd>:let @+ = expand('%')<CR>", { desc = "Copy current file path" })
-vim.keymap.set("n", "<leader>FR", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {desc = "file wide replace word under cursor with word"})
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR><cmd>e<CR>", { silent = true })
-vim.keymap.set("n", "<C-Up>", "<cmd>resize +10<cr>", {desc="easy resize split up"})
-vim.keymap.set("n", "<C-Down>", "<cmd>resize -10<cr>", {desc="easy resize split up"})
-vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -10<cr>", {desc="easy resize split left"})
-vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +10<cr>", {desc="easy resize split up"})
-vim.keymap.set("n", "<C-S>", "<cmd>source %<cr>", {desc="source current file"})
-vim.keymap.set("n", "<CR>", "", {desc="disable enter"})
-vim.keymap.set('n', '<leader>cc', function()
-    local line = vim.fn.line('.')
-    local pattern = '```[^`]*```'
-    local start_line = line
-    local found = false
-
-    while start_line > 0 do
-        local line_content = vim.fn.getline(start_line)
-        if line_content:match('```') then
-            found = true
-            break
-        end
-        start_line = start_line - 1
-    end
-
-    if found then
-        local end_line = start_line
-        while end_line <= vim.fn.line('$') do
-            local line_content = vim.fn.getline(end_line)
-            if line_content:match('```') and end_line ~= start_line then
-                break
-            end
-            end_line = end_line + 1
-        end
-
-        vim.fn.setpos("'<", {0, start_line, 1, 0})
-        vim.fn.setpos("'>", {0, end_line, 1, 0})
-        vim.cmd('normal! gv"*y')
-    else
-        print('No codeblock found above the cursor')
-    end
-end, { desc = 'Yank closest codeblock above cursor' })
-
-vim.api.nvim_set_keymap('n', '<leader>gt', [[:vsplit<CR><C-w>L:vertical resize -60<CR>:terminal<CR>]], { noremap = true, silent = true })
+vim.keymap.set("n", "<C-Up>", "<cmd>resize +10<cr>", { desc = "easy resize split up" })
+vim.keymap.set("n", "<C-Down>", "<cmd>resize -10<cr>", { desc = "easy resize split up" })
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -10<cr>", { desc = "easy resize split left" })
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +10<cr>", { desc = "easy resize split up" })
+vim.keymap.set("n", "<C-S>", "<cmd>source %<cr>", { desc = "source current file" })
+vim.keymap.set("n", "<CR>", "", { desc = "disable enter" })
+vim.api.nvim_set_keymap('n', '<leader>gt', [[:vsplit<CR><C-w>L:vertical resize -60<CR>:terminal<CR>]],
+    { noremap = true, silent = true })
 vim.api.nvim_set_keymap('t', '<Esc><Esc>', [[<C-\><C-n>]], { noremap = true, silent = true, desc = "Exit terminal mode" })
 
--- autocmds, custom functions that aren't plugins
+-- GLOBAL COMMANDS
+-- treat any file with .env in the name as a .env file for syntax highlighting
+vim.cmd([[
+  au BufNewFile,BufRead *.env.* set filetype=sh
+]])
+
+-- when yanking, highlight the yanked text
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
@@ -122,58 +91,100 @@ autocmd('TextYankPost', {
     end,
 })
 
--- TODO: get this working
-local function git_compare_selection_with_main()
-  local _, line1, col1, _ = unpack(vim.fn.getpos("'<"))
-  local _, line2, col2, _ = unpack(vim.fn.getpos("'>"))
-  local current_branch = vim.fn.system("git branch --show-current"):gsub("%s+", "")
-  local current_selection = vim.fn.getline(line1, line2)
-  current_selection[1] = string.sub(current_selection[1], col1)
-  current_selection[#current_selection] = string.sub(current_selection[#current_selection], 1, col2)
-  local main_selection = vim.fn.systemlist(
-    string.format("git show main:%s | sed -n '%d,%dp'", vim.fn.expand("%:p"), line1, line2)
-  )
-  for i = 1, #current_selection do
-    local current_line = current_selection[i] or ""
-    local main_line = main_selection[i] or ""
-    if current_line ~= main_line then
-      print(string.format("diff at line %d:\n  current: %s\n  main: %s", line1 + i - 1, current_line, main_line))
-    end
-  end
-end
-vim.keymap.set("v", "<leader>1", git_compare_selection_with_main)
-local function wrap_markdown_text()
-  local filetype = vim.bo.filetype
-  if filetype == "markdown" then
-    local win_width = vim.api.nvim_win_get_width(0)
-    local margin = 4  -- adjust margin as needed
-    vim.bo.textwidth = win_width - margin
-    vim.wo.wrap = true
-    vim.wo.breakindent = true
-    vim.wo.linebreak = true
-    vim.bo.formatoptions = vim.bo.formatoptions .. "t"
-  end
-end
-vim.api.nvim_create_autocmd({"FileType", "VimResized"}, {
-  pattern = "markdown",
-  callback = wrap_markdown_text,
+-- DIAGNOSTICS
+vim.diagnostic.config({
+    update_in_insert = true,
+    float = {
+        focusable = false,
+        style = "minimal",
+        border = "rounded",
+        source = true,
+        header = "",
+        prefix = "",
+    },
+    virtual_text = true,
 })
--- treat any file with .env in the name as a .env file for syntax highlighting
-vim.cmd([[
-  au BufNewFile,BufRead *.env.* set filetype=sh
-]])
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+
+-- LSP
+-- vim.api.nvim_create_autocmd('LspAttach', {
+--     callback = function(e)
+--         local client = vim.lsp.get_client_by_id(e.data.client_id)
+--         if client == nil then
+--             return
+--         end
+--         local opts = { buffer = e.buf, remap = false }
+--         -- TODO: work out inbuilt diagnostic open float
+--         vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+--         if client:supports_method('textDocument/completion') then
+--             vim.lsp.completion.enable(true, client.id, e.buf)
+--         end
+--     end
+-- })
+--
+-- vim.lsp.config('*', {
+--     capabilities = vim.lsp.protocol.make_client_capabilities(),
+--     root_markers = { '.git' },
+-- })
+--
+-- vim.lsp.config.lua_ls = {
+--     cmd = { 'lua-language-server' },
+--     filetypes = { 'lua' },
+--     root_markers = { '.luarc.json', '.luarc.jsonc' },
+--     settings = {
+--         Lua = {
+--             runtime = { version = "Lua 5.1" },
+--             diagnostics = {
+--                 globals = { "bit", "vim", "it", "describe", "before_each", "after_each", "os", "require" },
+--             }
+--         }
+--     },
+-- }
+--
+-- vim.lsp.config.tsserver = {
+--     cmd = { "typescript-language-server", "--stdio" },
+--     filetypes = { "typescript", "typescriptreact" }
+-- }
+--
+-- vim.lsp.config.ruff = {
+--     cmd = { "ruff", "server" },
+--     filetypes = { "python" },
+--     root_markers = { ".ruff.toml", ".pyproject.toml", ".git" },
+-- }
+--
+-- vim.lsp.config.basedpyright = {
+--     cmd = { "basedpyright" },
+--     filetypes = { "python" },
+-- }
+--
+-- vim.lsp.config.gopls = {
+--     cmd = { "gopls" },
+--     filetypes = { "go", "gomod" },
+--     root_markers = { ".git", "go.mod" },
+--     settings = {
+--         gopls = {
+--             analyses = {
+--                 unusedparams = true,
+--                 shadow = true,
+--             },
+--             staticcheck = true,
+--         }
+--     }
+-- }
+--
+-- vim.lsp.enable({ "lua_ls", "tsserver", "ruff", "basedpyright", "gopls", "pyright" })
+
+local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazy_path) then
     vim.fn.system({
         "git",
         "clone",
         "--filter=blob:none",
         "https://github.com/folke/lazy.nvim.git",
         "--branch=stable", -- latest stable release
-        lazypath,
+        lazy_path,
     })
 end
-vim.opt.rtp:prepend(lazypath)
+vim.opt.rtp:prepend(lazy_path)
 
 require("lazy").setup("plugins", {
     change_detection = { notify = false },

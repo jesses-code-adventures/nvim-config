@@ -1,6 +1,6 @@
 return {
   "rest-nvim/rest.nvim",
-  filetypes = { "http" },
+  ft = { "http" },
   depencences = "nvim-telescope/telescope.nvim",
   enabled = false,
   config = function()
