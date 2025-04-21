@@ -1,4 +1,4 @@
-local testing = false
+local testing = true
 
 local local_dev_path = "~/coding/personal/llm.nvim"
 
@@ -17,10 +17,9 @@ return {
         dir = testing and local_dev_path or nil,
         dev = testing,
         dependencies = { 'nvim-lua/plenary.nvim' },
-        event = { "BufReadPost", "BufNewFile" },
         opts = {
             excluded_providers = { }, -- options: openai, deepseek, google, anthropic, groq
-            picker = 'telescope', -- pass nil, if you prefer a non-modifiable buffer to select your models from
+            picker = nil, -- pass nil, if you prefer a non-modifiable buffer to select your models from
             replace_prompt =
             'You should replace the code that you are sent, only following the comments. Do not talk at all. Only output valid code. If generating sql, always use lowercase where possible. Do not provide any backticks that surround the code. Never ever output backticks like this ```. Any comment that is asking you for something should be removed after you satisfy them. Other comments should left alone. Do not output backticks.',
             help_prompt =
