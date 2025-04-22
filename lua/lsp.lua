@@ -10,68 +10,63 @@ local diagnostic_icons = {
 
 local M = {}
 
--- Disable inlay hints initially (and enable if needed with my ToggleInlayHints command).
 vim.g.inlay_hints = false
 
---- Sets up LSP keymaps and autocommands for the given buffer.
----@param client vim.lsp.Client
----@param bufnr integer
 local function on_attach(client, bufnr)
-    ---@param lhs string
-    ---@param rhs string|function
-    ---@param desc string
-    ---@param mode? string|string[]
-    local function keymap(lhs, rhs, desc, mode)
-        mode = mode or 'n'
-        vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
-    end
+    print(client.name)
+    vim.keymap.set({ 'n', 'x' }, 'gra', '<cmd>FzfLua lsp_code_actions<cr>',
+        { buffer = bufnr, desc = 'vim.lsp.buf.code_action()' })
 
-    keymap('gra', '<cmd>FzfLua lsp_code_actions<cr>', 'vim.lsp.buf.code_action()', { 'n', 'x' })
+    vim.keymap.set('n', 'grr', '<cmd>FzfLua lsp_references<cr>', { buffer = bufnr, desc = 'vim.lsp.buf.references()' })
 
-    keymap('grr', '<cmd>FzfLua lsp_references<cr>', 'vim.lsp.buf.references()')
+    vim.keymap.set('n', 'gy', '<cmd>FzfLua lsp_typedefs<cr>', { buffer = bufnr, desc = 'Go to type definition' })
+    vim.keymap.set('n', '<leader>vd', function() vim.diagnostic.open_float() end,
+        { buffer = bufnr, desc = 'Show diagnostics' })
 
-    keymap('gy', '<cmd>FzfLua lsp_typedefs<cr>', 'Go to type definition')
-
-    keymap('<leader>fs', '<cmd>FzfLua lsp_document_symbols<cr>', 'Document symbols')
-    keymap('<leader>fS', function()
+    vim.keymap.set('n', '<leader>fs', '<cmd>FzfLua lsp_document_symbols<cr>',
+        { buffer = bufnr, desc = 'Document symbols' })
+    vim.keymap.set('n', '<leader>fS', function()
         -- Disable the grep switch header.
-        require('fzf-lua').lsp_live_workspace_symbols { no_header_i = true }
-    end, 'Workspace symbols')
+        require('fzf-lua').lsp_live_workspace_symbols({ no_header_i = true })
+    end, { buffer = bufnr, desc = 'Workspace symbols' })
 
-    keymap('[d', function()
-        vim.diagnostic.jump { count = -1 }
-    end, 'Previous diagnostic')
-    keymap(']d', function()
-        vim.diagnostic.jump { count = 1 }
-    end, 'Next diagnostic')
-    keymap('[e', function()
-        vim.diagnostic.jump { count = -1, severity = vim.diagnostic.severity.ERROR }
-    end, 'Previous error')
-    keymap(']e', function()
-        vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.ERROR }
-    end, 'Next error')
+    vim.keymap.set('n', '[d', function()
+        vim.diagnostic.jump({ count = -1 })
+    end, { buffer = bufnr, desc = 'Previous diagnostic' })
+    vim.keymap.set('n', ']d', function()
+        vim.diagnostic.jump({ count = 1 })
+    end, { buffer = bufnr, desc = 'Next diagnostic' })
+    vim.keymap.set('n', '[e', function()
+        vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
+    end, { buffer = bufnr, desc = 'Previous error' })
+    vim.keymap.set('n', ']e', function()
+        vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
+    end, { buffer = bufnr, desc = 'Next error' })
 
-    if client:supports_method(methods.textDocument_definition) then
-        keymap('gd', function()
-            require('fzf-lua').lsp_definitions { jump1 = true }
-        end, 'Go to definition')
-        keymap('gD', function()
-            require('fzf-lua').lsp_definitions { jump1 = false }
-        end, 'Peek definition')
+    if client:supports_method(methods.textDocument_definition, bufnr) then
+        vim.keymap.set('n', 'gd', function()
+            require('fzf-lua').lsp_definitions({ jump1 = true })
+        end, { buffer = bufnr, desc = 'Go to definition' })
+        vim.keymap.set('n', 'gD', function()
+            require('fzf-lua').lsp_definitions({ jump1 = false })
+        end, { buffer = bufnr, desc = 'Peek definition' })
+    else
+        print(client.name)
+        print('go to definition not supported')
     end
 
     if client:supports_method(methods.textDocument_signatureHelp) then
-        local blink_window = require 'blink.cmp.completion.windows.menu'
-        local blink = require 'blink.cmp'
+        local blink_window = require('blink.cmp.completion.windows.menu')
+        local blink = require('blink.cmp')
 
-        keymap('<C-k>', function()
+        vim.keymap.set('i', '<C-k>', function()
             -- Close the completion menu first (if open).
             if blink_window.win:is_open() then
                 blink.hide()
             end
 
             vim.lsp.buf.signature_help()
-        end, 'Signature help', 'i')
+        end, { buffer = bufnr, desc = 'Signature help' })
     end
 
     if client:supports_method(methods.textDocument_documentHighlight) then
@@ -161,7 +156,6 @@ vim.diagnostic.config {
                 ['Lua Diagnostics.'] = 'lua',
                 ['Lua Syntax Check.'] = 'lua',
             }
-
             local message = diagnostic_icons[vim.diagnostic.severity[diagnostic.severity]]
             if diagnostic.source then
                 message = string.format('%s %s', message, special_sources[diagnostic.source] or diagnostic.source)
@@ -218,19 +212,6 @@ vim.lsp.buf.signature_help = function()
     }
 end
 
--- Update mappings when registering dynamic capabilities.
-local register_capability = vim.lsp.handlers[methods.client_registerCapability]
-vim.lsp.handlers[methods.client_registerCapability] = function(err, res, ctx)
-    local client = vim.lsp.get_client_by_id(ctx.client_id)
-    if not client then
-        return
-    end
-
-    on_attach(client, vim.api.nvim_get_current_buf())
-
-    return register_capability(err, res, ctx)
-end
-
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'Configure LSP keymaps',
     callback = function(args)
@@ -245,19 +226,29 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
--- Set up LSP servers.
+-- Update mappings when registering dynamic capabilities.
+local register_capability = vim.lsp.handlers[methods.client_registerCapability]
+vim.lsp.handlers[methods.client_registerCapability] = function(err, res, ctx)
+    local client = vim.lsp.get_client_by_id(ctx.client_id)
+    if not client then
+        return
+    end
+
+    on_attach(client, vim.api.nvim_get_current_buf())
+
+    return register_capability(err, res, ctx)
+end
+
 vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
     once = true,
     callback = function()
-        local server_configs = vim.iter(vim.api.nvim_get_runtime_file('lua/lsp/*.lua', true))
+        local server_configs = vim.iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
             :map(function(file)
                 return vim.fn.fnamemodify(file, ':t:r')
             end)
             :totable()
+
         vim.lsp.enable(server_configs)
-        for _, server in ipairs(server_configs) do
-            vim.lsp.config[server] = require('lsp.' .. server)
-        end
     end,
 })
 

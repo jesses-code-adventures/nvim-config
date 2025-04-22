@@ -4,6 +4,7 @@
 return {
     cmd = { 'lua-language-server' },
     filetypes = { 'lua' },
+    capabilities = vim.lsp.protocol.make_client_capabilities(),
     root_markers = { '.luarc.json', '.luarc.jsonc' },
     settings = {
         Lua = {

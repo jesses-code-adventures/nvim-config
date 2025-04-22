@@ -3,6 +3,7 @@
 ---@type vim.lsp.Config
 return {
     cmd = { "gopls" },
+    capabilities = vim.lsp.protocol.make_client_capabilities(),
     filetypes = { "go", "gomod" },
     root_markers = { ".git", "go.mod" },
     settings = {
@@ -13,5 +14,5 @@ return {
             },
             staticcheck = true,
         }
-    }
+    },
 }

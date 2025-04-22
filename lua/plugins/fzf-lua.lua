@@ -11,7 +11,7 @@ return {
     { '<leader>pb',  function() require("fzf-lua").buffers() end,              mode = "n", desc = "fuzzy find on open buffers" },
     { '<leader>fw',  function() require("fzf-lua").grep_string() end,          mode = "n" },
     { '<leader>vh',  function() require("fzf-lua").help_tags() end,            mode = "n", desc = "get help tags" },
-    { '<leader-gf>', function() require("fzf-lua").git_files() end,            mode = "n", desc = "git files fuzzy find" },
+    { '<leader>gf', function() require("fzf-lua").git_files() end,            mode = "n", desc = "git files fuzzy find" },
     { '<leader>km',  function() require("fzf-lua").keymaps() end,              mode = "n", desc = "keymaps" },
   }
 }

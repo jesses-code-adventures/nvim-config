@@ -1,3 +1,9 @@
+-- Global variables.
+vim.g.projects_dir = vim.env.HOME .. '/coding'
+vim.g.personal_projects_dir = vim.g.projects_dir .. '/personal'
+vim.g.givetel_projects_dir = vim.g.projects_dir .. '/givetel'
+vim.g.rapid_projects_dir = vim.g.projects_dir .. '/rapid'
+
 local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazy_path) then
     vim.fn.system({
@@ -19,19 +25,20 @@ require("lsp")
 
 require("lazy").setup("plugins", {
     change_detection = { notify = false },
+    dev = { path = vim.g.projects_dir },
     rocks = { enable = false },
     performance = {
-    rtp = {
-        disabled_plugins = {
-            'gzip',
-            'netrwPlugin',
-            'rplugin',
-            'tarPlugin',
-            'tohtml',
-            'tutor',
-            'zipPlugin',
+        rtp = {
+            disabled_plugins = {
+                'gzip',
+                'netrwPlugin',
+                'rplugin',
+                'tarPlugin',
+                'tohtml',
+                'tutor',
+                'zipPlugin',
+            },
         },
-    },
     },
 })
 

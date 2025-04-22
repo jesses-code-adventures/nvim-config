@@ -2,6 +2,7 @@
 
 ---@type vim.lsp.Config
 return {
+    capabilities = vim.lsp.protocol.make_client_capabilities(),
     cmd = { 'yaml-language-server', '--stdio' },
     filetypes = { 'yaml' },
     settings = {

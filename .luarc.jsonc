@@ -10,8 +10,6 @@
       "$VIMRUNTIME/lua",
       // "${3rd}/luv/library",
       // Extra configuration helpers.
-      // "lua/float_term.lua",
-      // "lua/icons.lua",
       "lua/lsp.lua",
       // Include some plugins for API completion.
       "$XDG_DATA_HOME/nvim/lazy/LuaSnip/lua",
@@ -20,7 +18,7 @@
       "$XDG_DATA_HOME/nvim/lazy/fzf-lua/lua",
       "$XDG_DATA_HOME/nvim/lazy/lazy.nvim/lua",
       "$XDG_DATA_HOME/nvim/lazy/nvim-dap-ui/lua",
-      "$XDG_DATA_HOME/nvim/lazy/nvim-dap/lua",
+      "$XDG_DATA_HOME/nvim/lazy/nvim-dap/lua"
     ]
   }
 }

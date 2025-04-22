@@ -3,6 +3,7 @@
 ---@type vim.lsp.Config
 return {
     cmd = { 'vscode-json-language-server', '--stdio' },
+    capabilities = vim.lsp.protocol.make_client_capabilities(),
     filetypes = { 'json', 'jsonc' },
     settings = {
         json = {
