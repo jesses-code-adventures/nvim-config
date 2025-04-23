@@ -1,0 +1,8 @@
+-- Install with: npm i -g tailwindcss/language-server
+
+---@type vim.lsp.Config
+return {
+    cmd = { 'tailwindcss-language-server', '--stdio' },
+    filetypes = { 'css', 'scss', 'less', 'postcss', 'html', 'vue', 'svelte', 'astro', 'markdown', 'jsx', 'tsx', 'templ' },
+    root_markers = { 'package.json', 'tsconfig.json', 'go.mod' },
+}

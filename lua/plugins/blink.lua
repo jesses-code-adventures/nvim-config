@@ -23,7 +23,7 @@ return {
       list = {
         -- Insert items while navigating the completion list.
         selection = { preselect = false, auto_insert = true },
-        max_items = 10,
+        -- max_items = 10,
       },
       documentation = { auto_show = true },
       menu = {
