@@ -13,7 +13,6 @@ local M = {}
 vim.g.inlay_hints = false
 
 local function on_attach(client, bufnr)
-    print(client.name)
     vim.keymap.set({ 'n', 'x' }, 'gra', '<cmd>FzfLua lsp_code_actions<cr>',
         { buffer = bufnr, desc = 'vim.lsp.buf.code_action()' })
 
@@ -51,9 +50,6 @@ local function on_attach(client, bufnr)
             require('fzf-lua').lsp_definitions({ jump1 = false })
         end, { buffer = bufnr, desc = 'Peek definition' })
     else
-        print(client.name)
-        print('go to definition not supported')
-    end
 
     if client:supports_method(methods.textDocument_signatureHelp) then
         local blink_window = require('blink.cmp.completion.windows.menu')
