@@ -1,4 +1,4 @@
--- install with `sudo npm i -g pyright`
+-- install with: npm i -g pyright
 
 ---@type vim.lsp.Config
 return {

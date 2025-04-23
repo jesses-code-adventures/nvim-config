@@ -1,4 +1,4 @@
--- install with `sudo npm i -g pyright`
+-- install with: curl -LsSf https://astral.sh/ruff/install.sh | sh
 
 ---@type vim.lsp.Config
 return {

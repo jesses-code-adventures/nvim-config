@@ -1,2 +1,2 @@
-sync_language_servers:
-	sudo ./scripts/sync_language_servers.sh
+sync-servers:
+	./scripts/sync_servers.sh

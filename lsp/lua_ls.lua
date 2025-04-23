@@ -1,4 +1,4 @@
--- Install with: npm i -g lua-language-server
+-- Install with: brew upgrade lua-language-server || brew install lua-language-server
 
 ---@type vim.lsp.Config
 return {

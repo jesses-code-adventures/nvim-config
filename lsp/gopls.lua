@@ -1,4 +1,4 @@
--- install with `go install golang.org/x/tools/gopls@latest`
+-- install with: go install golang.org/x/tools/gopls@latest
 
 ---@type vim.lsp.Config
 return {

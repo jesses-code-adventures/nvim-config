@@ -1,4 +1,4 @@
--- Install with: cargo install --features lsp --locked taplo-cli
+-- Install with: curl -fsSL https://github.com/tamasfe/taplo/releases/latest/download/taplo-full-linux-x86_64.gz | gzip -d - > ~/.local/bin/taplo && chmod +x ~/.local/bin/taplo
 
 ---@type vim.lsp.Config
 return {

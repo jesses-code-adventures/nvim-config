@@ -1,6 +1,4 @@
--- Install with
--- mac: brew install llvm
--- Arch: pacman -S clang
+-- Install with: brew upgrade llvm || brew install llvm
 
 ---@type vim.lsp.Config
 return {

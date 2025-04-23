@@ -1,4 +1,4 @@
--- Install with: rustup component add rust-analyzer
+-- Install with: curl -L https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer && chmod +x ~/.local/bin/rust-analyzer
 
 ---@type vim.lsp.Config
 return {
