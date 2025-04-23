@@ -25,10 +25,34 @@ vim.api.nvim_create_user_command('Scratch', function()
 end, { desc = 'Open a scratch buffer', nargs = 0 })
 
 vim.api.nvim_create_user_command('UpdateServers', function()
-    local handle = io.popen(vim.fn.stdpath('config') .. '/scripts/sync_servers.sh')
-    if handle then
-        local result = handle:read('*a')
-        handle:close()
-        vim.notify(result, vim.log.levels.INFO)
-    end
+    local command = vim.fn.stdpath('config') .. '/scripts/sync_servers.sh'
+    local notify_id = nil
+
+    vim.fn.jobstart(command, {
+        stdout_buffered = false,
+        on_stdout = function(_, data)
+            if data then
+                for _, line in ipairs(data) do
+                    if line ~= "" then
+                        notify_id = vim.notify(line, vim.log.levels.INFO, {
+                            replace = notify_id,
+                            title = "Server Updates"
+                        })
+                    end
+                end
+            end
+        end,
+        on_stderr = function(_, data)
+            if data then
+                for _, line in ipairs(data) do
+                    if line ~= "" then
+                        notify_id = vim.notify(line, vim.log.levels.ERROR, {
+                            replace = notify_id,
+                            title = "Server Updates"
+                        })
+                    end
+                end
+            end
+        end
+    })
 end, { desc = 'Update the language servers', nargs = 0 })
