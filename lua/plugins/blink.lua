@@ -11,7 +11,6 @@ return {
     keymap = {
       preset = 'default',
       ['<C-c>'] = { 'show', 'show_documentation', 'hide_documentation' },
-
       -- unmap c-Space so copilot can have it
       ['<C-space>'] = {},
     },
