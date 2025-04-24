@@ -38,3 +38,4 @@ vim.keymap.set("n", "<leader>gt", [[:vsplit<CR><C-w>L:vertical resize -60<CR>:te
 vim.keymap.set('t', '<Esc><Esc>', [[<C-\><C-n>]], { noremap = true, silent = true, desc = "Exit terminal mode" })
 vim.keymap.set('n', '<leader>cl', '<cmd>checkhealth lsp<cr>', { desc = "Check LSP health" })
 vim.keymap.set('n', '<leader>su', '<cmd>UpdateServers<cr>', { desc = "Update language servers" })
+vim.keymap.set('n', '<leader>td', '<cmd>Todos<cr>', { desc = "Search TODOs" })

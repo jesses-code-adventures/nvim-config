@@ -3,7 +3,8 @@
 set -euo pipefail
 IFS=$'\n'
 
-BIN_DIR="$HOME/.local/bin"
+LOCAL_DIR="$HOME/.local"
+BIN_DIR="$LOCAL_DIR/bin"
 mkdir -p "$BIN_DIR"
 
 link_bin() {
@@ -25,10 +26,10 @@ for cmd in "${unique_cmds[@]}"; do
   (
     # Add prefix to npm install commands if they don't already have one
     if [[ $cmd == "npm i"* || $cmd == "npm install"* ]] && [[ ! $cmd =~ --prefix ]]; then
-      cmd="$cmd --prefix ~/.local"
+      cmd="$cmd --prefix $LOCAL_DIR"
     fi
     if [[ $cmd == "go install"*  ]] && [[ ! $cmd =~ --GOBIN ]]; then
-      cmd="GOBIN=~/.local/bin $cmd"
+      cmd="GOBIN=$BIN_DIR $cmd"
     fi
     
     echo "[+] executing → $cmd"

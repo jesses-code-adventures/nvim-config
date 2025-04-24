@@ -1,4 +1,4 @@
-local testing = true
+local testing = false
 
 local local_dev_path = "~/coding/personal/llm.nvim"
 

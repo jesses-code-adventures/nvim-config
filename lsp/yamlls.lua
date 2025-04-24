@@ -5,6 +5,7 @@ return {
     capabilities = vim.lsp.protocol.make_client_capabilities(),
     cmd = { 'yaml-language-server', '--stdio' },
     filetypes = { 'yaml' },
+    single_file_support = true,
     settings = {
         yaml = {
             -- Using the schemastore plugin for schemas.
