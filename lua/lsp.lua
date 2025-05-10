@@ -224,6 +224,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
+vim.lsp.handlers[methods.textDocument_publishDiagnostics] = function(err, result, ctx, config)
+  local uri = result.uri
+  if vim.fn.filereadable(vim.uri_to_fname(uri)) == 0 then
+    return
+  end
+  vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx)
+end
+
 -- Update mappings when registering dynamic capabilities.
 local register_capability = vim.lsp.handlers[methods.client_registerCapability]
 vim.lsp.handlers[methods.client_registerCapability] = function(err, res, ctx)

@@ -1,11 +1,22 @@
 return {
     'sindrets/diffview.nvim',
-    dependencies = 'nvim-lua/plenary.nvim',
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        'nvim-tree/nvim-web-devicons'
+    },
     keys = {
         {
             mode = "n", -- normal mode
             "<leader>gd", -- keybinding
-            function() vim.cmd("DiffviewOpen main...HEAD") end, -- command as function
+            function()
+                local dv, err = pcall(function()
+                    vim.cmd("DiffviewOpen main...HEAD")
+                end)
+
+                if not dv then
+                    vim.cmd("DiffviewOpen master...HEAD")
+                end
+            end, -- command as function
             desc = "Compare the current PR against main" -- description
         },
     },
