@@ -31,3 +31,10 @@ vim.filetype.add({
         mdc = "markdown",
     },
 })
+
+
+vim.filetype.add {
+    extension = {
+        templ = "templ",
+    },
+}
