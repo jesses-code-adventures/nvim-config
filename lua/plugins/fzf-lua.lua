@@ -11,9 +11,6 @@ end
 return {
   "ibhagwan/fzf-lua",
   dependencies = { "echasnovski/mini.icons" },
-  opts = {
-    rg_opts = "--glob '!*_templ.go'"
-  },
   keys = {
     { "<leader>pf", function() require("fzf-lua").files({ cmd = files_command() }) end, mode = "n",      desc = "fuzzy find files" },
     { "<leader>ds", function() require("fzf-lua").lsp_document_symbols() end,  mode = "n",      desc = "fuzzy find on open buffers" },
