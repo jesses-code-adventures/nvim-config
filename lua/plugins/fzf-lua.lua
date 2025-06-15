@@ -1,10 +1,38 @@
+---@param ignore_patterns string[]
+local function rg_command(ignore_patterns)
+  local flags = ""
+  for _, pattern in ipairs(ignore_patterns) do
+    flags = flags .. "-g !'" .. pattern .. "' "
+  end
+end
+
+local grep_ignore_patters = {
+  "*_mocks.go",
+  "*mocks_test.go",
+  ".git",
+  "**/*.sql.go",
+  "**/*_templ.go",
+  "**/*mocks.go",
+  "**/*mocks_test.go",
+  "_tmp",
+}
+
+local fd_ignore_patterns = {
+  ".git",
+  "**/*.sql.go",
+  "**/*_templ.go",
+  "**/*mocks.go",
+  "**/*mocks_test.go",
+  "_tmp",
+}
+
 local function live_grep_command()
   local msg = "rg -. -g '!*_mocks.go' -g '!*mocks_test.go' -g '!.git' -g '!**/*.sql.go' -g '!*_templ.go' -g '!_tmp'"
   return msg
 end
 
 local function files_command()
-  local msg = "fd -t f -I -E '.git' -E '**/*.sql.go' -E '**/*_templ.go' -E '**/*mocks.go' -E '**/*mocks_test.go' -E '_tmp'"
+  local msg = "fd -t f -E '.git' -E '**/*.sql.go' -E '**/*_templ.go' -E '**/*mocks.go' -E '**/*mocks_test.go' -E '_tmp'"
   return msg
 end
 
