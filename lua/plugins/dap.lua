@@ -51,8 +51,8 @@ return {
         },
         {
           elements = {
-            { id = "scopes", size = 1 },
-            -- { id = "breakpoints", size = 0.5 },
+            { id = "scopes", size = 0.8 },
+            { id = "breakpoints", size = 0.2 },
           },
           size = 40,
           position = "left",
